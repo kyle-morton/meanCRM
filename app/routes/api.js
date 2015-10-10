@@ -217,22 +217,25 @@ module.exports = function(app, express) {
 				
 				console.log("ERROR: " + err);
 				
-				//update users info ONLY if new (if sent in request body)
-				if(req.body.name) {user.name = req.body.name;}
-				if(req.body.username) {user.username = req.body.username;}
-				if(req.body.password) {user.password = req.body.password;}
 				
-				//save the user object 
-				user.save (function(err) {
-					if (err) res.send("ERROR: " + err);
-					
-					console.log("ERROR: " + err);
-					
-					res.json({message: "User Updated"});
-				});
+				if (user) {
+					//update users info ONLY if new (if sent in request body)
+					if(req.body.name) {user.name = req.body.name;}
+					if(req.body.username) {user.username = req.body.username;}
+					if(req.body.password) {user.password = req.body.password;}
 				
-				
-				
+					//save the user object 
+					user.save (function(err) {
+						if (err) res.send("ERROR: " + err);
+						
+						console.log("ERROR: " + err);
+						
+						res.json({message: "User Updated"});
+					});
+				} else {
+					res.json({message: "User Not Found!"});
+				}
+								
 			});
 		})
 		
