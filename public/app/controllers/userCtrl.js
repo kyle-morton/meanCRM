@@ -102,6 +102,9 @@ angular.module ('userCtrl', ['userService'])
 		//call User factory to update user in backend
 		User.update($routeParams.user_id, vm.userData)
 			.success(function(data) {
+				// console.log("Called update with: " + $routeParams.user_id + "\n" + JSON.stringify(vm.userData) 
+				// 				+ "\n" + JSON.stringify(data));
+				
 				vm.processing = false;
 				vm.userData = {};
 				vm.message = data.message;
