@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Post = require('../models/post');
 var jwt = require('jsonwebtoken');
 var config = require('../../config');
 
@@ -249,6 +250,59 @@ module.exports = function(app, express) {
 				
 			})
 		});
+		
+		
+		//Route to create, find, delete user posts
+		apiRouter.route('/posts')
+		
+		.post(function(req, res) {
+			//create new user
+			var post = new Post();
+			
+			//set post info that came in req
+			// user.name = req.body.name;
+			// user.username = req.body.username;
+			// user.password = req.body.password;
+			
+			post.subject = req.body.subject;
+			post.body = req.body.body;
+			post.userid = req.body.userid;
+			post.username = req.body.username;
+			
+			console.log("Creating New Post: " + 
+							JSON.stringify(post));
+			
+			post.save(function(err) { //use built in save to send user to MDB
+			
+				console.log("ERROR: " + err);
+				
+				if (err) { //if error, handle appropriately
+						return res.send(err);
+				}
+				//no error, user created
+				res.json({message: 'Post Created!'});
+				
+			});
+			
+		}) //end POST
+		
+		.get(function(req, res) {
+			//REM: mongoose model is collection object! 
+			//you can run queries just using model name
+			
+			//find takes callback -> takes err object or list of 
+			//docs returned from query
+			Post.find(function(err, posts) {
+				if (err) {
+					res.send("ERROR: " + err);
+				} else {
+					console.log("Posts Found: " + JSON.stringify(posts));
+					res.json(posts);
+				}
+			})
+			
+		});
+		
 
 		//return apiRouter for use in main application		
 		return apiRouter;
