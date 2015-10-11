@@ -46,3 +46,7 @@ icon to make it spin!)
 .jumbotron {
 	background-color: #D8D8D8 ; 
 }
+
+.anchorStyle:hover {
+	cursor:pointer;
+}

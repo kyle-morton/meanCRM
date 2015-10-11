@@ -2,6 +2,13 @@ angular.module ('mainCtrl', [])
 
 //including the Auth factory!
 .controller ('mainController', function($rootScope, $location, Auth){
+
+	//TEST of SweetAlert	
+	// swal({   
+	// 	title: "Error!",   
+	// 	text: "Here's my error message!",   
+	// 	type: "error",   
+	// 	confirmButtonText: "Cool" });
 	
 	var vm = this;
 	
