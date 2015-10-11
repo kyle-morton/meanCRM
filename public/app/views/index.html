@@ -50,7 +50,9 @@
 		</div>	
 		<ul class="nav navbar-nav">
 			<li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-			<li><a class="anchorStyle"><span class="glyphicon glyphicon-pencil"></span>Create Post</a></li>
+			<li><a class="anchorStyle" ng-click="main.openMessageDialog()">
+				<span class="glyphicon glyphicon-pencil"></span>Create Post
+			</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
