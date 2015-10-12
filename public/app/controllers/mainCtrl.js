@@ -15,6 +15,9 @@ angular.module ('mainCtrl', [])
 	
 	vm.processing = false;
 	
+	vm.postData = {};
+
+	
 	//check if user logged in on EACH request
 	//subscribing to rootScope objects changeStart event!
 	//when new request sent, it fires
@@ -67,25 +70,21 @@ angular.module ('mainCtrl', [])
 		
 	};
 	
-	vm.openMessageDialog = function() {
-			swal({   
-				title: "An input!",   
-				text: "Write something interesting:",   
-				type: "input",  
-				showCancelButton: true,   
-				closeOnConfirm: false,   
-				animation: "slide-from-top",   
-				inputPlaceholder: "Write something" 
-			}, 
-			function(inputValue){   
-				if (inputValue === false) return false;      
-				if (inputValue === "") {     
-					swal.showInputError("You need to write something!");     
-					return false   
-				}      
-				swal("Nice!", "You wrote: " + inputValue, "success"); 
-				
-			});
+	vm.createPost = function() {
+			console.log("Values: " + vm.postData.subject + " " + vm.postData.body);
 	};
+	
+	
+	// 
+	// 	<div class="form-group">
+	// 	<label for="exampleInputEmail1">Subject</label>
+	// 	<input type="text" class="form-control" id="postSubject" 
+	// 		ng-model="main.postData.subject" placeholder="subject">
+	// </div>
+	// <div class="form-group">
+	// 	<label for="postBody">Post Body</label>
+	// 	<textarea rows="3" class="form-control" id="postBody"
+	// 	 ng-model="main.postData.body" placeholder="body">
+	// </div>
 	
 });

@@ -50,3 +50,7 @@ icon to make it spin!)
 .anchorStyle:hover {
 	cursor:pointer;
 }
+
+.modal-content {
+	min-height: 400px;
+}
