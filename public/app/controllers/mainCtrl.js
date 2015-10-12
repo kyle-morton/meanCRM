@@ -1,7 +1,7 @@
-angular.module ('mainCtrl', []) 
+angular.module ('mainCtrl', ['postService']) 
 
 //including the Auth factory!
-.controller ('mainController', function($rootScope, $location, Auth){
+.controller ('mainController', function($rootScope, $location, Auth, Post){
 
 	//TEST of SweetAlert	
 	// swal({   
@@ -72,6 +72,33 @@ angular.module ('mainCtrl', [])
 	
 	vm.createPost = function() {
 			console.log("Values: " + vm.postData.subject + " " + vm.postData.body);
+			
+			//if both values are filled in
+			if (vm.postData.subject && vm.postData.body) {
+				
+				console.log(JSON.stringify(vm.user));
+				
+				//create body of API Request
+				var postData = {
+					subject : vm.postData.subject,
+					body : vm.postData.body,
+					userid : vm.user.id,
+					username : vm.user.username
+				};
+				
+				Post.create(postData)
+						.then(function(data) {
+							// console.log("DATA: " + JSON.stringify(data));
+							var message = data.data.message;
+							console.log("Message: " + message);
+							swal("Success!", message.toString(), "success");
+							vm.postData = {};
+						});	
+				
+			} else {
+				swal("Error!", "Post must have subject and body", "error");
+			}
+			
 	};
 	
 	

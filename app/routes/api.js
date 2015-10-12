@@ -47,13 +47,16 @@ module.exports = function(app, express) {
 							message: authMessage + "Wrong Password"
 						});
 					} else { //valid password entered
+					
+					console.log("user: " + JSON.stringify(user));
 						
 						//Create JWT Token
 						//ARGS -> pass object with name, username
 						// secret, expiration in minutes
 						var token = jwt.sign({
 								name: user.name,
-								username: user.username
+								username: user.username,
+								id: user._id
 							}, secret, {expiresInMinutes: 1440}); //expire in 24 hours
 						
 						res.json({
