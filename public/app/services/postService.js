@@ -11,5 +11,11 @@ angular.module('postService', [])
 			return $http.post('/api/posts/', postData); //return promise object
 		};
 		
+		//retrieve all posts from API
+		postFactory.all= function() {
+			console.log("Retrieving Posts");
+			return $http.get('/api/posts');
+		};
+		
 		return postFactory;
 	})

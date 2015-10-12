@@ -1,0 +1,65 @@
+angular.module('postCtrl', ['postService'])
+
+//needs AUTH for currently logged in user-info API request
+.controller('postController', function (Post, Auth) {
+	
+	var vm = this;
+	vm.processing = true;
+	
+	//used to retrieve all user posts in database
+	vm.loadPosts = function(){
+		Post.all()
+			.success(function(data) {
+				console.log("DATA: " + JSON.stringify(data));
+				vm.processingPosts = false;
+				vm.posts = data;
+			});
+	};
+	
+	//load user posts
+	vm.loadPosts();
+	
+	//Get Currently Logged-In User Info
+	Auth.getUser()
+		.then(function(data) {
+			vm.user = data.data;
+		});	
+	
+	
+	vm.createPost = function() {
+		console.log("Values: " + vm.postData.subject + " " + vm.postData.body);
+		
+		//if both values are filled in
+		if (vm.postData.subject && vm.postData.body) {
+			
+			console.log(JSON.stringify(vm.user));
+			
+			//create body of API Request
+			var postData = {
+				subject : vm.postData.subject,
+				body : vm.postData.body,
+				userid : vm.user.id,
+				username : vm.user.username
+			};
+			
+			Post.create(postData)
+					.then(function(data) {
+						// console.log("DATA: " + JSON.stringify(data));
+						var message = data.data.message;
+						console.log("Message: " + message);
+						swal("Success!", message.toString(), "success");
+						
+						
+						
+						//reset form, reload posts
+						vm.postData = {};
+						vm.loadPosts();
+					});	
+			
+		} else {
+			swal("Error!", "Post must have subject and body", "error");
+		}
+			
+	};
+	
+});

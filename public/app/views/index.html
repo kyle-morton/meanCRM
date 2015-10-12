@@ -37,6 +37,7 @@
 	<!-- controllers -->
 	<script src="app/controllers/mainCtrl.js"></script>
 	<script src="app/controllers/userCtrl.js"></script>
+	<script src="app/controllers/postCtrl.js"></script>
 
 	<!-- main Angular app files -->
 	<script src="app/app.routes.js"></script>
@@ -53,10 +54,9 @@
 		</div>	
 		<ul class="nav navbar-nav">
 			<li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-			<li><a class="anchorStyle" data-target="#postModal" data-toggle="modal"> 
-				 <!--ng-click="main.openMessageDialog()">-->
+			<!--<li><a class="anchorStyle" data-target="#postModal" data-toggle="modal"> 
 				<span class="glyphicon glyphicon-pencil"></span>Create Post
-			</a></li>
+			</a></li>-->
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
@@ -72,41 +72,6 @@
 	<!-- ANGULAR VIEWS -->
 	<div ng-view></div>
 	
-
-	
-	<!-- Modal -->
-	<div id="postModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-		
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Create User Post</h4>
-				</div>
-				<div class="modal-body">
-						<div class="form-group">
-							<label for="exampleInputEmail1">Subject</label>
-							<input type="text" class="form-control" id="postSubject" 
-								ng-model="main.postData.subject" placeholder="subject">
-						</div>
-						<div class="form-group">
-							<label for="postBody">Post Body</label>
-							<textarea rows="2" class="form-control" id="postBody"
-							ng-model="main.postData.body" placeholder="body">
-							</textarea>
-
-						</div>
-				</div>
-				<div class="modal-footer text-align">
-					<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-					<a href="#" ng-click="main.createPost()" 
-							class="btn btn-primary">Save Post</a>
-				</div>
-			</div>
-		
-		</div>
-	</div>
 </main>
 
 </body>

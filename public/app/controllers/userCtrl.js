@@ -1,14 +1,15 @@
 console.log("initializing user Controller!")
 
-angular.module ('userCtrl', ['userService'])
+angular.module ('userCtrl', ['userService', 'postService'])
 
 //Inject USER factory
-.controller ('userController', function (User) {
+.controller ('userController', function (User, Post) {
 	
 	
 	
 	var vm = this;
 	vm.processing = true;
+	vm.processingPosts = true;
 	
 	vm.loadUsers = function(){
 	//get all users from the userFactory
@@ -19,13 +20,19 @@ angular.module ('userCtrl', ['userService'])
 		});
 	};
 	
-	//load users on init
+	//used to retrieve all user posts in database
+	vm.loadPosts = function(){
+		Post.all()
+			.success(function(data) {
+				console.log("DATA: " + JSON.stringify(data));
+				vm.processingPosts = false;
+				vm.posts = data;
+			});
+	};
+	
+	//load users, posts on init
 	vm.loadUsers();
-	
-	
-	
-	
-	
+	vm.loadPosts();
 	
 	vm.deleteUser = function(id) {
 		vm.processing = true;

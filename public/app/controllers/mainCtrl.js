@@ -70,48 +70,35 @@ angular.module ('mainCtrl', ['postService'])
 		
 	};
 	
-	vm.createPost = function() {
-			console.log("Values: " + vm.postData.subject + " " + vm.postData.body);
-			
-			//if both values are filled in
-			if (vm.postData.subject && vm.postData.body) {
-				
-				console.log(JSON.stringify(vm.user));
-				
-				//create body of API Request
-				var postData = {
-					subject : vm.postData.subject,
-					body : vm.postData.body,
-					userid : vm.user.id,
-					username : vm.user.username
-				};
-				
-				Post.create(postData)
-						.then(function(data) {
-							// console.log("DATA: " + JSON.stringify(data));
-							var message = data.data.message;
-							console.log("Message: " + message);
-							swal("Success!", message.toString(), "success");
-							vm.postData = {};
-						});	
-				
-			} else {
-				swal("Error!", "Post must have subject and body", "error");
-			}
-			
-	};
-	
-	
-	// 
-	// 	<div class="form-group">
-	// 	<label for="exampleInputEmail1">Subject</label>
-	// 	<input type="text" class="form-control" id="postSubject" 
-	// 		ng-model="main.postData.subject" placeholder="subject">
-	// </div>
-	// <div class="form-group">
-	// 	<label for="postBody">Post Body</label>
-	// 	<textarea rows="3" class="form-control" id="postBody"
-	// 	 ng-model="main.postData.body" placeholder="body">
-	// </div>
+	// vm.createPost = function() {
+	// 		console.log("Values: " + vm.postData.subject + " " + vm.postData.body);
+	// 		
+	// 		//if both values are filled in
+	// 		if (vm.postData.subject && vm.postData.body) {
+	// 			
+	// 			console.log(JSON.stringify(vm.user));
+	// 			
+	// 			//create body of API Request
+	// 			var postData = {
+	// 				subject : vm.postData.subject,
+	// 				body : vm.postData.body,
+	// 				userid : vm.user.id,
+	// 				username : vm.user.username
+	// 			};
+	// 			
+	// 			Post.create(postData)
+	// 					.then(function(data) {
+	// 						// console.log("DATA: " + JSON.stringify(data));
+	// 						var message = data.data.message;
+	// 						console.log("Message: " + message);
+	// 						swal("Success!", message.toString(), "success");
+	// 						vm.postData = {};
+	// 					});	
+	// 			
+	// 		} else {
+	// 			swal("Error!", "Post must have subject and body", "error");
+	// 		}
+	// 		
+	// };
 	
 });
