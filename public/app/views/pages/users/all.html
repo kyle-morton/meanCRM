@@ -21,7 +21,7 @@
 	<table class="table table-bordered table-striped" ng-show="user.users" >
 		<thead>
 			<tr>
-				<th>_id</th>
+				<!--<th>_id</th>-->
 				<th>Name</th>
 				<th>Username</th>
 				<th>Role</th>
@@ -30,13 +30,15 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="person in user.users">
-				<td>{{ person._id }}</td>
+				<!--<td>{{ person._id }}</td>-->
 				<td>{{ person.name }}</td>
 				<td>{{ person.username }}</td>
 				<td>{{ person.role }}</td>
 				<td class="col-sm-2">
-					<a ng-href="/users/{{ person._id }}" class="btn btn-danger">Edit</a>
-					<a href="#" ng-click="user.deleteUser(person._id)" class="btn btn-primary">Delete</a>
+					<a ng-href="/users/{{ person._id }}" class="btn btn-primary">Edit</a>
+					<!-- Only Display Delete if not-currently logged in user -->
+						<a href="#" ng-click="user.deleteUser(person._id)" 
+						class="btn btn-danger" ng-if="main.user.id != person._id">Delete</a>
 				</td>
 			</tr>
 		</tbody>

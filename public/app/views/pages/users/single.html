@@ -29,7 +29,8 @@
 		<label class="col-sm-2 control-label">Role</label>
 		<div class="col-sm-6">
 			<select data-ng-model="user.userData.role"
-					data-ng-options="role for role in user.roles">                
+					data-ng-options="role for role in user.roles"
+					ng-init="user.userData.role = user.roles[0]">                
 			</select>
 		</div>
 	</div>
