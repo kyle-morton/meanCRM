@@ -309,6 +309,39 @@ module.exports = function(app, express) {
 			
 		});
 		
+		apiRouter.route('/posts/:post_id')
+		
+		//update post to be read
+		.put(function(req, res) {
+			
+			//get the user object id 
+			Post.findById(req.params.post_id, function(err, post) {
+				if (err) res.send("ERROR: " + err);
+			
+				
+				
+				if (post) {
+				
+					//flip read flag
+					post.read = !post.read;
+				
+					//save the user object 
+					post.save (function(err) {
+						if (err) res.send("ERROR: " + err);
+						
+						console.log("ERROR: " + err);
+						
+						res.json({message: "Post Updated"});
+					});
+				} else {
+					res.json({message: "Post Not Found!"});
+				}
+								
+			});
+			
+			
+		})
+		
 
 		//return apiRouter for use in main application		
 		return apiRouter;

@@ -9,6 +9,7 @@ var PostSchema = new Schema({
 	body: String,
 	userid: String,
 	username: String,
+	read: Boolean,
 	time : { type : Date, default: Date.now }
 });
 
