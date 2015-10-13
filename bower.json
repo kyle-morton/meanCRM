@@ -1,0 +1,21 @@
+{
+  "name": "meanCRM",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kylemorton5770/meanCRM",
+  "authors": [
+    "kylemorton5770 <michael.morton@smail.astate.edu>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

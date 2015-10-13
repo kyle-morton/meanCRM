@@ -20,19 +20,11 @@ angular.module ('userCtrl', ['userService', 'postService'])
 		});
 	};
 	
-	//used to retrieve all user posts in database
-	vm.loadPosts = function(){
-		Post.all()
-			.success(function(data) {
-				console.log("DATA: " + JSON.stringify(data));
-				vm.processingPosts = false;
-				vm.posts = data;
-			});
-	};
+	
 	
 	//load users, posts on init
 	vm.loadUsers();
-	vm.loadPosts();
+
 	
 	vm.deleteUser = function(id) {
 		vm.processing = true;
