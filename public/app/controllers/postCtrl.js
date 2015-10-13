@@ -10,7 +10,6 @@ angular.module('postCtrl', ['postService'])
 	vm.loadPosts = function(){
 		Post.all()
 			.success(function(data) {
-				console.log("DATA: " + JSON.stringify(data));
 				vm.processingPosts = false;
 				vm.posts = data;
 			});
@@ -27,12 +26,9 @@ angular.module('postCtrl', ['postService'])
 	
 	
 	vm.createPost = function() {
-		console.log("Values: " + vm.postData.subject + " " + vm.postData.body);
 		
 		//if both values are filled in
 		if (vm.postData.subject && vm.postData.body) {
-			
-			console.log(JSON.stringify(vm.user));
 			
 			//create body of API Request
 			var postData = {
@@ -46,11 +42,8 @@ angular.module('postCtrl', ['postService'])
 					.then(function(data) {
 						// console.log("DATA: " + JSON.stringify(data));
 						var message = data.data.message;
-						console.log("Message: " + message);
 						swal("Success!", message.toString(), "success");
-						
-						
-						
+
 						//reset form, reload posts
 						vm.postData = {};
 						vm.loadPosts();

@@ -135,6 +135,7 @@ module.exports = function(app, express) {
 			user.name = req.body.name;
 			user.username = req.body.username;
 			user.password = req.body.password;
+			user.role = req.body.role;
 			
 			console.log("Creating New User: " + 
 							JSON.stringify(user));
@@ -227,6 +228,7 @@ module.exports = function(app, express) {
 					if(req.body.name) {user.name = req.body.name;}
 					if(req.body.username) {user.username = req.body.username;}
 					if(req.body.password) {user.password = req.body.password;}
+					if(req.body.role) {user.role = req.body.role;}
 				
 					//save the user object 
 					user.save (function(err) {
@@ -299,7 +301,7 @@ module.exports = function(app, express) {
 				if (err) {
 					res.send("ERROR: " + err);
 				} else {
-					console.log("Posts Found: " + JSON.stringify(posts));
+					// console.log("Posts Found: " + JSON.stringify(posts));
 					res.json(posts);
 				}
 			})

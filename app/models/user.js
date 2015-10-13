@@ -8,7 +8,8 @@ var bcrypt 		 = require('bcrypt-nodejs');
 var UserSchema   = new Schema({
 	name: String,
 	username: { type: String, required: true, index: { unique: true }}, //index -> unique means UN !=
-	password: { type: String, required: true, select: false } //select(F) -> no need to get PW on query
+	password: { type: String, required: true, select: false }, //select(F) -> no need to get PW on query,
+	role: {type: String, enum: ['admin', 'manager', 'user']}
 });
 
 // hash the password before the user is saved
