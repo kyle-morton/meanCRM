@@ -23,7 +23,7 @@ module.exports = function(app, express) {
 		//Find User By ID
 		User.findOne({
 			username: req.body.username
-			}).select('name username password').exec(function(err, user){
+			}).select('name username password role').exec(function(err, user){
 				
 				if (err) res.send("ERROR: " + err);
 				
@@ -48,7 +48,7 @@ module.exports = function(app, express) {
 						});
 					} else { //valid password entered
 					
-					console.log("user: " + JSON.stringify(user));
+					// console.log("user: " + JSON.stringify(user));
 						
 						//Create JWT Token
 						//ARGS -> pass object with name, username
@@ -56,7 +56,8 @@ module.exports = function(app, express) {
 						var token = jwt.sign({
 								name: user.name,
 								username: user.username,
-								id: user._id
+								id: user._id,
+								role: user.role
 							}, secret, {expiresInMinutes: 1440}); //expire in 24 hours
 						
 						res.json({

@@ -3,13 +3,7 @@ angular.module ('mainCtrl', ['postService'])
 //including the Auth factory!
 .controller ('mainController', function($rootScope, $location, Auth, Post){
 
-	//TEST of SweetAlert	
-	// swal({   
-	// 	title: "Error!",   
-	// 	text: "Here's my error message!",   
-	// 	type: "error",   
-	// 	confirmButtonText: "Cool" });
-
+	console.log("init main controller");
 	
 	var vm = this;
 	
@@ -17,6 +11,7 @@ angular.module ('mainCtrl', ['postService'])
 	
 	vm.postData = {};
 
+	vm.message ="HELLO!";
 	
 	//check if user logged in on EACH request
 	//subscribing to rootScope objects changeStart event!

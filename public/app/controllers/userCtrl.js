@@ -1,5 +1,3 @@
-console.log("initializing user Controller!")
-
 angular.module ('userCtrl', ['userService', 'postService'])
 
 //Inject USER factory
@@ -51,6 +49,7 @@ angular.module ('userCtrl', ['userService', 'postService'])
 	
 	var vm = this;
 	vm.type = "create";
+	vm.roles = ['admin', 'manager', 'user'];
 	
 	//create user
 	vm.saveUser = function() {
@@ -87,6 +86,7 @@ angular.module ('userCtrl', ['userService', 'postService'])
 	var vm = this;
 	
 	vm.type = "edit";
+	vm.roles = ['admin', 'manager', 'user'];
 	
 	//initialize form by getting user info for user with id passed in URL
 	User.get($routeParams.user_id)
