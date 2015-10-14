@@ -27,8 +27,6 @@ app.use(function(req, res, next) {
 	next();
 });
 
-// app.use(multer({dest: './uploads'}));
-
 
 // log all requests to the console 
 app.use(morgan('dev'));

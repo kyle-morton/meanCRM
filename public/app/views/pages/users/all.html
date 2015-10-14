@@ -1,3 +1,12 @@
+<div>
+	<input class="btn btn-default" type="file" nv-file-select uploader="uploader"/><br/>
+	<ul>
+		<li ng-repeat="item in uploader.queue">
+			Name: <span ng-bind="item.file.name"></span>
+			<a class="btn btn-default" ng-click="item.upload()">upload</a>
+		</li>
+	</ul>
+</div>
 <div ng-if="main.user.role === 'admin'">
 	
 
