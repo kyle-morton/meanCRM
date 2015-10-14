@@ -15,7 +15,7 @@ angular.module('postCtrl', ['postService'])
 			.success(function(data) {
 				vm.processingPosts = false;
 				vm.posts = data;
-				if (vm.posts.length > 3) {
+				if (vm.posts.length > 5) {
 					$('#postTableDiv').addClass('scrollTable');
 				} else {
 					$('#postTableDiv').removeClass('scrollTable');
