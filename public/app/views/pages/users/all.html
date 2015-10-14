@@ -35,7 +35,7 @@
 				<td class="text-center">{{ person.username }}</td>
 				<td class="text-center">{{ person.role }}</td>
 				<td class="col-sm-2 text-center buttonColumn">
-					<a ng-href="/users/{{ person._id }}" title="Edit User" class="tableBtn">
+					<a ng-href="/users/{{ person._id }}" title="Edit User" class="tableBtn anchorStyle">
 						<i class="glyphicon glyphicon-pencil"></i>
 					</a>
 
@@ -43,7 +43,7 @@
 				<td class="col-sm-2 text-center buttonColumn">
 					<!-- Only Display Delete if not-currently logged in user -->
 					<a ng-click="user.deleteUser(person._id)" 
-				    ng-if="main.user.id != person._id" class="tableBtn">
+				    ng-if="main.user.id != person._id" class="tableBtn anchorStyle">
 						<i class="fa fa-times fa-lg"></i>
 					</a>
 				</td>
@@ -76,7 +76,9 @@
 				<th class="text-center">Author</th>
 				<th class="text-center">Time</th>
 				<th class="text-center">Status</th>
-				<th class="col-sm-1 text-center"></th>
+				<th class="col-sm-2 text-center buttonColumn"></th>
+				<th class="col-sm-2 text-center buttonColumn"></th>
+				<th class="col-sm-2 text-center buttonColumn"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -90,16 +92,24 @@
 					<span ng-if="post.read === true"> Read </span>
 					<span ng-if="post.read === false"> New </span> 
 				</td>
-				<td class="col-sm-1 text-center">
+				<td class="col-sm-2 text-center buttonColumn">
+					<a class="anchorStyle tableBtn" title="Edit Post" ng-click="postCtlr.openEditModal(post)" 
+					ng-show="main.user.id === post.userid" >
+						<i class="glyphicon glyphicon-pencil"></i>
+					</a>
+				</td>
+				<td class="col-sm-2 text-center buttonColumn">
 					<a class="anchorStyle tableBtn" title="Update Status"
 					ng-click="postCtlr.updatePostStatus(post._id)" 
 					ng-show="main.user.id === post.userid">
 						<i class="fa fa-envelope fa-lg" ng-show="post.read === false"></i>
 						<i class="fa fa-envelope-o fa-lg" ng-show="post.read === true"></i>
 					</a>
-					<a class="anchorStyle tableBtn" title="Edit Post" ng-click="postCtlr.openEditModal(post)" 
+				</td>
+				<td class="col-sm-2 text-center buttonColumn">
+					<a class="anchorStyle tableBtn" title="Edit Post" 
 					ng-show="main.user.id === post.userid" >
-						<i class="glyphicon glyphicon-pencil"></i>
+						<i class="fa fa-times fa-lg"></i>
 					</a>
 				</td>
 			</tr>

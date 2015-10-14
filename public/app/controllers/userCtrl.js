@@ -25,18 +25,31 @@ angular.module ('userCtrl', ['userService', 'postService'])
 
 	
 	vm.deleteUser = function(id) {
-		vm.processing = true;
 		
-		//call User Factory to delete user
-		User.delete(id)
-			.success(function(data) {
+		swal({   
+			title: "Are you sure?",   
+			text: "You will not be able to recover the user!",   
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "Yes, delete it!",   
+			closeOnConfirm: true }
+			, function(){   
 				
-				//user was deleted successfully
-				//refetch user's list
-				vm.loadUsers();
-				
+				//if confirm, delete user
+				vm.processing = true;
+	
+				//call User Factory to delete user
+				User.delete(id)
+					.success(function(data) {
+						
+						//user was deleted successfully
+						//refetch user's list
+						vm.loadUsers();
+						
+					});
+			
 			});
-		
 	};
 	
 
