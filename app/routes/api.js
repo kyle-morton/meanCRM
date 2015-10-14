@@ -278,31 +278,38 @@ module.exports = function(app, express) {
 			//create new user
 			var post = new Post();
 			
-			//set post info that came in req
-			// user.name = req.body.name;
-			// user.username = req.body.username;
-			// user.password = req.body.password;
-			
-			post.subject = req.body.subject;
-			post.body = req.body.body;
-			post.userid = req.body.userid;
-			post.username = req.body.username;
-			post.read = false; //set to false by default on creation
-			
-			console.log("Creating New Post: " + 
-							JSON.stringify(post));
-			
-			post.save(function(err) { //use built in save to send user to MDB
-			
-				console.log("ERROR: " + err);
+			//check that body meets length requirement
+			if (req.body.body.length <= 140) {
+				//set post info that came in req
+				// user.name = req.body.name;
+				// user.username = req.body.username;
+				// user.password = req.body.password;
 				
-				if (err) { //if error, handle appropriately
-						return res.send(err);
-				}
-				//no error, user created
-				res.json({message: 'Post Created!'});
+				post.subject = req.body.subject;
+				post.body = req.body.body;
+				post.userid = req.body.userid;
+				post.username = req.body.username;
+				post.read = false; //set to false by default on creation
 				
-			});
+				console.log("Creating New Post: " + 
+								JSON.stringify(post));
+				
+				post.save(function(err) { //use built in save to send user to MDB
+				
+					console.log("ERROR: " + err);
+					
+					if (err) { //if error, handle appropriately
+							return res.send(err);
+					}
+					//no error, user created
+					res.json({message: 'Post Created!'});
+					
+				});
+			} else { //doesn't meet 140 character requirement
+				res.json({message: 'Post body may not be over 140 characters! Please try again!'});
+			}
+			
+
 			
 		}) //end POST
 		
@@ -346,15 +353,23 @@ module.exports = function(app, express) {
 				
 					//flip read flag
 				 	if(!updatingContent) {post.read = !post.read};
+					 
+					if (updatingContent && post.body.length > 140) { //fail 140 character limit check
+						
+						res.json({message: "Post body may not be over 140 characters! Please try again!"});
+						
+					} else { //if passes check, save post
+						//save the user object 
+						post.save (function(err) {
+							if (err) res.send("ERROR: " + err);
+							
+							console.log("ERROR: " + err);
+							
+							res.json({message: "Post Updated"});
+						});
+					}
 				
-					//save the user object 
-					post.save (function(err) {
-						if (err) res.send("ERROR: " + err);
-						
-						console.log("ERROR: " + err);
-						
-						res.json({message: "Post Updated"});
-					});
+		
 				} else {
 					res.json({message: "Post Not Found!"});
 				}

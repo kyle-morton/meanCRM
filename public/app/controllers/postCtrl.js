@@ -28,27 +28,35 @@ angular.module('postCtrl', ['postService'])
 	
 	vm.createPost = function() {
 		
+		console.log("Length: " + vm.postData.body.length);
+		
 		//if both values are filled in
 		if (vm.postData.subject && vm.postData.body) {
 			
-			//create body of API Request
-			var postData = {
-				subject : vm.postData.subject,
-				body : vm.postData.body,
-				userid : vm.user.id,
-				username : vm.user.username
-			};
+			if (vm.postData.body.length <= 140) {
+				//create body of API Request
+				var postData = {
+					subject : vm.postData.subject,
+					body : vm.postData.body,
+					userid : vm.user.id,
+					username : vm.user.username
+				};
+				
+				Post.create(postData)
+						.then(function(data) {
+							// console.log("DATA: " + JSON.stringify(data));
+							var message = data.data.message;
+							swal("Success!", message.toString(), "success");
+	
+							//reset form, reload posts
+							vm.postData = {};
+							vm.loadPosts();
+						});	
+			} else { //over the 140 character limit
+				swal("Oops!", "Post body has a 140 character limit! Please try again!", "error");
+			}
 			
-			Post.create(postData)
-					.then(function(data) {
-						// console.log("DATA: " + JSON.stringify(data));
-						var message = data.data.message;
-						swal("Success!", message.toString(), "success");
 
-						//reset form, reload posts
-						vm.postData = {};
-						vm.loadPosts();
-					});	
 			
 		} else {
 			swal("Error!", "Post must have subject and body", "error");
@@ -73,8 +81,11 @@ angular.module('postCtrl', ['postService'])
 	};
 	
 	vm.updatePostContent = function () {
-		console.log("POST CONTENT: " + JSON.stringify(vm.editPostData));
-		Post.update(vm.editPostData)
+		console.log("POST CONTENT: " + JSON.stringify(vm.editPostData) + " " 
+		+ vm.editPostData.body.length);
+		
+		if (vm.editPostData.body.length <= 140) { //impose 140 character limit on body
+					Post.update(vm.editPostData)
 			.then(function(data){
 				var message = data.data.message;
 				swal("Success!", message.toString(), "success");
@@ -87,6 +98,11 @@ angular.module('postCtrl', ['postService'])
 				$('#editPostModal').modal('hide');
 				
 			});
+		} else {
+			swal("Oops!", "Post body has a 140 character limit! Please try again!", "error");
+		}
+		
+
 	};
 	
 });

@@ -43,16 +43,43 @@ icon to make it spin!)
 
 
 /* Custom */
-.jumbotron {
+/*.jumbotron {
 	background-color: #D8D8D8 ; 
-}
+}*/
 
 .anchorStyle:hover {
 	cursor:pointer;
 }
 
+.anchorStyle {
+	text-decoration: none !important;
+}
+
 .modal-content {
 	min-height: 400px;
+}
+
+.navbar-inverse {
+	background-color: #000;
+}
+
+.leftSideBar {
+	float: left;
+	margin-left: -150px;
+	width: 150px;
+}
+
+#ngCenterView {
+	margin-left: 50px;
+}
+
+.tableBtn {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.buttonColumn {
+	width: 50px;	
 }
 
 /* Table Scroll */

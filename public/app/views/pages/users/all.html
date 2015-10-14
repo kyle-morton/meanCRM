@@ -1,16 +1,15 @@
 <div ng-if="main.user.role === 'admin'">
 	
 
-	<div class="page-header">
-		<h1>
-			Users 
-			<a href="/users/create" class="btn btn-default">
-				<span class="glyphicon glyphicon-plus"></span> 
-				New User
-			</a>
-		</h1>
+	<h1>
+		Users 
+		<a href="/users/create" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus"></span> 
+			New User
+		</a>
+	</h1>
 	
-	</div>
+	<br>
 	
 	<div class="jumbotron text-center" ng-show="user.processing">
 		<span class="glyphicon glyphicon-repeat spinner"></span>
@@ -25,7 +24,8 @@
 				<th class="text-center">Name</th>
 				<th class="text-center">Username</th>
 				<th class="text-center">Role</th>
-				<th class="col-sm-2 text-center"></th>
+				<th class="col-sm-2 text-center buttonColumn"></th>
+				<th class="col-sm-2 text-center buttonColumn"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,11 +34,18 @@
 				<td class="text-center">{{ person.name }}</td>
 				<td class="text-center">{{ person.username }}</td>
 				<td class="text-center">{{ person.role }}</td>
-				<td class="col-sm-2 text-center">
-					<a ng-href="/users/{{ person._id }}" class="btn btn-primary">Edit</a>
+				<td class="col-sm-2 text-center buttonColumn">
+					<a ng-href="/users/{{ person._id }}" title="Edit User" class="tableBtn">
+						<i class="glyphicon glyphicon-pencil"></i>
+					</a>
+
+				</td>
+				<td class="col-sm-2 text-center buttonColumn">
 					<!-- Only Display Delete if not-currently logged in user -->
-						<a href="#" ng-click="user.deleteUser(person._id)" 
-						class="btn btn-danger" ng-if="main.user.id != person._id">Delete</a>
+					<a ng-click="user.deleteUser(person._id)" 
+				    ng-if="main.user.id != person._id" class="tableBtn">
+						<i class="fa fa-times fa-lg"></i>
+					</a>
 				</td>
 			</tr>
 		</tbody>
@@ -48,15 +55,14 @@
 
 <div ng-controller="postController as postCtlr">
 
-	<div class="page-header">
 
-		<h1>Posts
-			<a class="btn btn-default" data-target="#postModal" data-toggle="modal">
-				<span class="glyphicon glyphicon-plus"></span> 
-				New Post
-			</a>
-		</h1>
-	</div>	
+	<h1>Posts
+		<a class="btn btn-default" data-target="#postModal" data-toggle="modal">
+			<span class="glyphicon glyphicon-plus"></span> 
+			New Post
+		</a>
+	</h1>
+	<br>
 	<div class="jumbotron text-center" ng-show="postCtlr.processingPosts">
 		<span class="glyphicon glyphicon-repeat spinner"></span>
 		<p>Loading Posts...</p>
@@ -85,14 +91,15 @@
 					<span ng-if="post.read === false"> New </span> 
 				</td>
 				<td class="col-sm-1 text-center">
-					<a class="anchorStyle" title="Update Status"
-					ng-click="postCtlr.updatePostStatus(post._id)" ng-show="main.user.id === post.userid">
+					<a class="anchorStyle tableBtn" title="Update Status"
+					ng-click="postCtlr.updatePostStatus(post._id)" 
+					ng-show="main.user.id === post.userid">
 						<i class="fa fa-envelope fa-lg" ng-show="post.read === false"></i>
 						<i class="fa fa-envelope-o fa-lg" ng-show="post.read === true"></i>
 					</a>
-					<a class="anchorStyle" title="Edit Post" ng-click="postCtlr.openEditModal(post)" 
-					ng-show="main.user.id === post.userid">
-						<i class="fa fa-pencil fa-lg"></i>
+					<a class="anchorStyle tableBtn" title="Edit Post" ng-click="postCtlr.openEditModal(post)" 
+					ng-show="main.user.id === post.userid" >
+						<i class="glyphicon glyphicon-pencil"></i>
 					</a>
 				</td>
 			</tr>
