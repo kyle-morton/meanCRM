@@ -5,6 +5,7 @@ angular.module('postCtrl', ['postService'])
 	
 	var vm = this;
 	vm.processing = true;
+	vm.type = "create";
 	
 	//used to retrieve all user posts in database
 	vm.loadPosts = function(){
@@ -61,6 +62,13 @@ angular.module('postCtrl', ['postService'])
 				//if success reload table
 				vm.loadPosts();
 			});
+	}
+	
+	vm.openEditModal = function (post) {
+		console.log("POST: " + JSON.stringify(post));
+		vm.type = "edit";
+		vm.postData = post;
+		$('#postModal').modal('show');
 	}
 	
 });

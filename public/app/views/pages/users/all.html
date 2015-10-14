@@ -90,7 +90,8 @@
 						<i class="fa fa-envelope fa-lg" ng-show="post.read === false"></i>
 						<i class="fa fa-envelope-o fa-lg" ng-show="post.read === true"></i>
 					</a>
-					<a class="anchorStyle" title="Edit Post" ng-show="main.user.id === post.userid">
+					<a class="anchorStyle" title="Edit Post" ng-click="postCtlr.openEditModal(post)" 
+					ng-show="main.user.id === post.userid">
 						<i class="fa fa-pencil fa-lg"></i>
 					</a>
 				</td>

@@ -337,10 +337,15 @@ module.exports = function(app, express) {
 				//if found post to update
 				if (post) {
 					
-					//Check if 
+					var updatingContent = false;
+					
+					//Check if body contains updates to subject body
+					//if updating this content, set flag to true so it doesn't auto flip the read flag
+					if(req.body.subject) {post.subject = req.body.subject; updatingContent = true;}
+					if (req.body.body) {post.body = req.body.body; updatingContent = true;}	
 				
 					//flip read flag
-					post.read = !post.read;
+				 	if(!updatingContent) {post.read = !post.read};
 				
 					//save the user object 
 					post.save (function(err) {
@@ -357,7 +362,7 @@ module.exports = function(app, express) {
 			});
 			
 			
-		})
+		});
 		
 
 		//return apiRouter for use in main application		
