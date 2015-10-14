@@ -80,7 +80,7 @@ angular.module('authService', [])
 	//get token from local-storage
 	authTokenFactory.getToken = function() {
 		return $window.localStorage.getItem('token'); //use 'token' as key to get value
-	}
+	};
 	
 	//set token or clear token
 	//if token passed, set. if none, clear.
@@ -90,7 +90,7 @@ angular.module('authService', [])
 		} else {
 			$window.localStorage.removeItem('token', token);
 		}
-	}
+	};
 	
 	
 	//set the token or clear the token
@@ -123,7 +123,7 @@ angular.module('authService', [])
 		
 		
 		return config;
-	}
+	};
 	
 	//redirect to login if token not authenticated
 	//Used if get 403 response (not auth)
@@ -134,7 +134,7 @@ angular.module('authService', [])
 			$location.path('/login'); //redirect to login view
 		}
 		
-	}
+	};
 	
 	return interceptorFactory;
 	

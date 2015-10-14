@@ -87,6 +87,6 @@ angular.module('postCtrl', ['postService'])
 				$('#editPostModal').modal('hide');
 				
 			});
-	}
+	};
 	
 });

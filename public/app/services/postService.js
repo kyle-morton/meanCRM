@@ -20,12 +20,12 @@ angular.module('postService', [])
 		postFactory.status= function(id) {
 			console.log("Updating Post Read Flag For: " + id);
 			return $http.put('/api/posts/' + id);
-		}
+		};
 		
 		postFactory.update= function(postData) {
 			console.log("Updating Post Content For: " + postData._id);
 			return $http.put('/api/posts/' + postData._id, postData);
-		}
+		};
 		
 		return postFactory;
-	})
+	});

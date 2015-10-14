@@ -36,10 +36,10 @@ angular.module('userService', [])
 		//delete a user
 		userFactory.delete = function(id) {
 			return $http.delete('/api/users/' + id);
-		}
+		};
 		
 		
 		//return factory object
 		//so it's fns may be used
 		return userFactory;
-	})
+	});
