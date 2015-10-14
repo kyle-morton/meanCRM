@@ -62,13 +62,31 @@ angular.module('postCtrl', ['postService'])
 				//if success reload table
 				vm.loadPosts();
 			});
-	}
+	};
 	
 	vm.openEditModal = function (post) {
 		console.log("POST: " + JSON.stringify(post));
 		vm.type = "edit";
-		vm.postData = post;
-		$('#postModal').modal('show');
+		vm.editPostData = JSON.parse(JSON.stringify(post)); //copying data into editPostData
+															//to avoid referencing table post
+		$('#editPostModal').modal('show');
+	};
+	
+	vm.updatePostContent = function () {
+		console.log("POST CONTENT: " + JSON.stringify(vm.editPostData));
+		Post.update(vm.editPostData)
+			.then(function(data){
+				var message = data.data.message;
+				swal("Success!", message.toString(), "success");
+				
+				//reset form, reload posts
+				vm.editPostData = {};
+				vm.loadPosts();
+				
+				//close modal
+				$('#editPostModal').modal('hide');
+				
+			});
 	}
 	
 });

@@ -22,5 +22,10 @@ angular.module('postService', [])
 			return $http.put('/api/posts/' + id);
 		}
 		
+		postFactory.update= function(postData) {
+			console.log("Updating Post Content For: " + postData._id);
+			return $http.put('/api/posts/' + postData._id, postData);
+		}
+		
 		return postFactory;
 	})
