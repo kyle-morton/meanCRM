@@ -8,6 +8,8 @@ angular.module ('mainCtrl', ['postService'])
 	vm.processing = false;
 	
 	vm.postData = {};
+
+	console.log("initialized tablesorters");
 	
 	//check if user logged in on EACH request
 	//subscribing to rootScope objects changeStart event!

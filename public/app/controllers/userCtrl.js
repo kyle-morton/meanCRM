@@ -9,12 +9,19 @@ angular.module ('userCtrl', ['userService', 'postService'])
 	vm.processing = true;
 	vm.processingPosts = true;
 	
+	// $('#userTable').tablesorter();
+	
 	vm.loadUsers = function(){
 	//get all users from the userFactory
 	User.all()
 		.success(function(data) { //on success, bind data to controller
 			vm.processing = false;
 			vm.users = data;
+			if (vm.users.length >= 6) {
+				$('#userTableDiv').addClass('scrollTable');
+			} else {
+				$('#userTableDiv').removeClass('scrollTable');
+			}
 		});
 	};
 	

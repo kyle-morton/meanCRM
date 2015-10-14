@@ -15,41 +15,41 @@
 		<span class="glyphicon glyphicon-repeat spinner"></span>
 		<p>Loading Users...</p>
 	</div>
+	<div id="userTableDiv">
+		<table class="table table-bordered table-striped tablesorter" id="userTable" ng-show="user.users" >
+			<thead>
+				<tr>
+					<!--<th>_id</th>-->
+					<th class="text-center">Name</th>
+					<th class="text-center">Username</th>
+					<th class="text-center">Role</th>
+					<th class="col-sm-2 text-center buttonColumn"></th>
+					<th class="col-sm-2 text-center buttonColumn"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="person in user.users | orderBy">
+					<!--<td>{{ person._id }}</td>-->
+					<td class="text-center">{{ person.name }}</td>
+					<td class="text-center">{{ person.username }}</td>
+					<td class="text-center">{{ person.role }}</td>
+					<td class="col-sm-2 text-center buttonColumn">
+						<a ng-href="/users/{{ person._id }}" title="Edit User" class="tableBtn anchorStyle">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</a>
 	
-	<table class="table table-bordered table-striped" ng-show="user.users" >
-		<thead>
-			<tr>
-				<!--<th>_id</th>-->
-				<th class="text-center">Name</th>
-				<th class="text-center">Username</th>
-				<th class="text-center">Role</th>
-				<th class="col-sm-2 text-center buttonColumn"></th>
-				<th class="col-sm-2 text-center buttonColumn"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="person in user.users | orderBy">
-				<!--<td>{{ person._id }}</td>-->
-				<td class="text-center">{{ person.name }}</td>
-				<td class="text-center">{{ person.username }}</td>
-				<td class="text-center">{{ person.role }}</td>
-				<td class="col-sm-2 text-center buttonColumn">
-					<a ng-href="/users/{{ person._id }}" title="Edit User" class="tableBtn anchorStyle">
-						<i class="glyphicon glyphicon-pencil"></i>
-					</a>
-
-				</td>
-				<td class="col-sm-2 text-center buttonColumn">
-					<!-- Only Display Delete if not-currently logged in user -->
-					<a ng-click="user.deleteUser(person._id)" 
-				    ng-if="main.user.id != person._id" class="tableBtn anchorStyle">
-						<i class="fa fa-times fa-lg"></i>
-					</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
+					</td>
+					<td class="col-sm-2 text-center buttonColumn">
+						<!-- Only Display Delete if not-currently logged in user -->
+						<a ng-click="user.deleteUser(person._id)" 
+						ng-if="main.user.id != person._id" class="tableBtn anchorStyle">
+							<i class="fa fa-times fa-lg"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <div ng-controller="postController as postCtlr">
@@ -67,54 +67,55 @@
 		<p>Loading Posts...</p>
 	</div>
 	
-	<table class="table table-bordered table-striped" ng-show="postCtlr.posts">
-		<thead>
-			<tr>
-				<th class="text-center">Subject</th>
-				<th class="text-center">Body</th>
-				<th class="text-center">Author</th>
-				<th class="text-center">Time</th>
-				<th class="text-center">Status</th>
-				<th class="col-sm-2 text-center buttonColumn"></th>
-				<th class="col-sm-2 text-center buttonColumn"></th>
-				<th class="col-sm-2 text-center buttonColumn"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="post in postCtlr.posts | orderBy" >
-			<!--ng-if="post.read === false">-->
-				<td class="text-center">{{ post.subject }}</td>
-				<td class="text-center">{{ post.body }}</td>
-				<td class="text-center">{{ post.username }}</td>
-				<td class="text-center">{{ post.time | date:'medium' }}</td>
-				<td class="text-center">
-					<span ng-if="post.read === true"> Read </span>
-					<span ng-if="post.read === false"> New </span> 
-				</td>
-				<td class="col-sm-2 text-center buttonColumn">
-					<a class="anchorStyle tableBtn" title="Edit Post" ng-click="postCtlr.openEditModal(post)" 
-					ng-show="main.user.id === post.userid" >
-						<i class="glyphicon glyphicon-pencil"></i>
-					</a>
-				</td>
-				<td class="col-sm-2 text-center buttonColumn">
-					<a class="anchorStyle tableBtn" title="Update Status"
-					ng-click="postCtlr.updatePostStatus(post._id)" 
-					ng-show="main.user.id === post.userid">
-						<i class="fa fa-envelope fa-lg" ng-show="post.read === false"></i>
-						<i class="fa fa-envelope-o fa-lg" ng-show="post.read === true"></i>
-					</a>
-				</td>
-				<td class="col-sm-2 text-center buttonColumn">
-					<a class="anchorStyle tableBtn" title="Edit Post" 
-					ng-show="main.user.id === post.userid" ng-click="postCtlr.deletePost(post._id)">
-						<i class="fa fa-times fa-lg"></i>
-					</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
+	<div id="postTableDiv">
+		<table class="table table-bordered table-striped tablesorter" id="postTable" ng-show="postCtlr.posts">
+			<thead>
+				<tr>
+					<th class="text-center">Subject</th>
+					<th class="text-center">Body</th>
+					<th class="text-center">Author</th>
+					<th class="text-center">Time</th>
+					<th class="text-center">Status</th>
+					<th class="col-sm-2 text-center buttonColumn"></th>
+					<th class="col-sm-2 text-center buttonColumn"></th>
+					<th class="col-sm-2 text-center buttonColumn"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="post in postCtlr.posts | orderBy" >
+				<!--ng-if="post.read === false">-->
+					<td class="text-center">{{ post.subject }}</td>
+					<td class="text-center">{{ post.body }}</td>
+					<td class="text-center">{{ post.username }}</td>
+					<td class="text-center">{{ post.time | date:'medium' }}</td>
+					<td class="text-center">
+						<span ng-if="post.read === true"> Read </span>
+						<span ng-if="post.read === false"> New </span> 
+					</td>
+					<td class="col-sm-2 text-center buttonColumn">
+						<a class="anchorStyle tableBtn" title="Edit Post" ng-click="postCtlr.openEditModal(post)" 
+						ng-show="main.user.id === post.userid" >
+							<i class="glyphicon glyphicon-pencil"></i>
+						</a>
+					</td>
+					<td class="col-sm-2 text-center buttonColumn">
+						<a class="anchorStyle tableBtn" title="Update Status"
+						ng-click="postCtlr.updatePostStatus(post._id)" 
+						ng-show="main.user.id === post.userid">
+							<i class="fa fa-envelope fa-lg" ng-show="post.read === false"></i>
+							<i class="fa fa-envelope-o fa-lg" ng-show="post.read === true"></i>
+						</a>
+					</td>
+					<td class="col-sm-2 text-center buttonColumn">
+						<a class="anchorStyle tableBtn" title="Edit Post" 
+						ng-show="main.user.id === post.userid" ng-click="postCtlr.deletePost(post._id)">
+							<i class="fa fa-times fa-lg"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	<!-- Modal -->
 	<div id="postModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">

@@ -90,6 +90,18 @@ select#roleSelect {
 	margin-top: 7px;
 }
 
+#userTableDiv {
+	height: 200px;
+}
+
+#postTableDiv {
+	height: 200px;
+}
+
+.scrollTable {
+	overflow-y: scroll;
+}
+
 /*input {
 	border-radius: 5px !important;
 }*/

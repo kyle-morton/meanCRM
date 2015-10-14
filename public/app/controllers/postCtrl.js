@@ -7,12 +7,19 @@ angular.module('postCtrl', ['postService'])
 	vm.processing = true;
 	vm.type = "create";
 	
+	// $('#postTable').tablesorter();
+	
 	//used to retrieve all user posts in database
 	vm.loadPosts = function(){
 		Post.all()
 			.success(function(data) {
 				vm.processingPosts = false;
 				vm.posts = data;
+				if (vm.posts.length > 3) {
+					$('#postTableDiv').addClass('scrollTable');
+				} else {
+					$('#postTableDiv').removeClass('scrollTable');
+				}
 			});
 	};
 	
