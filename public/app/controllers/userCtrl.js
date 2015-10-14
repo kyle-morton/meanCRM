@@ -50,6 +50,8 @@ angular.module ('userCtrl', ['userService', 'postService'])
 						
 					});
 			
+				//comment
+			
 			});
 	};
 	
