@@ -12,6 +12,7 @@ var morgan     = require('morgan'); 		// used to see requests
 var mongoose   = require('mongoose');
 var port       = config.port;
 var path 	   = require('path');
+// var multer 	   = require('multer');
 
 // APP CONFIGURATION ---------------------
 // use body parser so we can grab information from POST requests
@@ -25,6 +26,8 @@ app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
 	next();
 });
+
+// app.use(multer({dest: './uploads'}));
 
 
 // log all requests to the console 

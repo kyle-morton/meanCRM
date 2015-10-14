@@ -1,6 +1,6 @@
 angular.module('userApp', ['ngAnimate', 'app.routes', 'authService', 
 							'mainCtrl', 'userCtrl', 'userService', 
-							'postCtrl', 'postService',
+							'postCtrl', 'postService', 'fileService',
 							'anguFixedHeaderTable'])
 
 // application configuration to integrate token into requests
