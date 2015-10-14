@@ -377,6 +377,16 @@ module.exports = function(app, express) {
 			});
 			
 			
+		})
+		
+		.delete(function(req, res) {
+			//REM: pass in json object for query -> match _id to req id
+			Post.remove({_id : req.params.post_id}, function(err, user) {
+				if (err) res.send("ERROR: " + err);
+				
+				res.json({message: "Post Deleted!"});
+				
+			})
 		});
 		
 

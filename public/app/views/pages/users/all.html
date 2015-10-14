@@ -107,7 +107,7 @@
 				</td>
 				<td class="col-sm-2 text-center buttonColumn">
 					<a class="anchorStyle tableBtn" title="Edit Post" 
-					ng-show="main.user.id === post.userid" >
+					ng-show="main.user.id === post.userid" ng-click="postCtlr.deletePost(post._id)">
 						<i class="fa fa-times fa-lg"></i>
 					</a>
 				</td>

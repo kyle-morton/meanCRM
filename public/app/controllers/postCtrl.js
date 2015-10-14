@@ -105,4 +105,33 @@ angular.module('postCtrl', ['postService'])
 
 	};
 	
+	vm.deletePost = function(id) {
+		swal({   
+			title: "Are you sure?",   
+			text: "You will not be able to recover this post!",   
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "Yes, delete it!",   
+			closeOnConfirm: true,
+			closeOnCancel: true }
+			, function(){   
+				
+				//if confirm, delete user
+				vm.processing = true;
+	
+				//call User Factory to delete user
+				Post.delete(id)
+					.success(function(data) {
+						
+						//refetch user's after return
+						vm.loadPosts();
+						
+					});
+			
+				//comment
+			
+			});
+	};
+	
 });

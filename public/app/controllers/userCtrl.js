@@ -28,7 +28,7 @@ angular.module ('userCtrl', ['userService', 'postService'])
 		
 		swal({   
 			title: "Are you sure?",   
-			text: "You will not be able to recover the user!",   
+			text: "You will not be able to recover this user!",   
 			type: "warning",   
 			showCancelButton: true,   
 			confirmButtonColor: "#DD6B55",   
