@@ -33,7 +33,8 @@ angular.module ('userCtrl', ['userService', 'postService'])
 			showCancelButton: true,   
 			confirmButtonColor: "#DD6B55",   
 			confirmButtonText: "Yes, delete it!",   
-			closeOnConfirm: true }
+			closeOnConfirm: true,
+			closeOnCancel: true }
 			, function(){   
 				
 				//if confirm, delete user

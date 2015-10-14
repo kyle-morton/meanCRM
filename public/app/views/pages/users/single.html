@@ -27,19 +27,20 @@
 	</div>
 	<div class="form-group" ng-if="main.user.id != user.userData._id">
 		<label class="col-sm-2 control-label">Role</label>
-		<div class="col-sm-6">
+		<div class="col-sm-6" id="selectDiv">
 			<select data-ng-model="user.userData.role"
 					data-ng-options="role for role in user.roles"
-					ng-init="user.userData.role = user.roles[0]">                
+					ng-init="user.userData.role = user.roles[0]"
+					id="roleSelect">                
 			</select>
 		</div>
 	</div>
 	
 	<div class="form-group">
-	<div class="col-sm-offset-2 col-sm-6">
-		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'create'">Create User</button>
-		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'edit'">Update User</button>
-	</div>
+		<div class="col-sm-offset-2 col-sm-6">
+			<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'create'">Create User</button>
+			<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'edit'">Update User</button>
+		</div>
 	</div>
 
 </form>

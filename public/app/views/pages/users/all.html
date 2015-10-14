@@ -16,7 +16,6 @@
 		<p>Loading Users...</p>
 	</div>
 	
-	
 	<table class="table table-bordered table-striped" ng-show="user.users" >
 		<thead>
 			<tr>
@@ -29,7 +28,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="person in user.users">
+			<tr ng-repeat="person in user.users | orderBy">
 				<!--<td>{{ person._id }}</td>-->
 				<td class="text-center">{{ person.name }}</td>
 				<td class="text-center">{{ person.username }}</td>
@@ -82,7 +81,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="post in postCtlr.posts" >
+			<tr ng-repeat="post in postCtlr.posts | orderBy" >
 			<!--ng-if="post.read === false">-->
 				<td class="text-center">{{ post.subject }}</td>
 				<td class="text-center">{{ post.body }}</td>

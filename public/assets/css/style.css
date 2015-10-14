@@ -82,6 +82,18 @@ icon to make it spin!)
 	width: 50px;	
 }
 
+select#roleSelect {
+    color: #000;
+}
+
+#selectDiv {
+	margin-top: 7px;
+}
+
+/*input {
+	border-radius: 5px !important;
+}*/
+
 /* Table Scroll */
 /*
 thead, tbody {
