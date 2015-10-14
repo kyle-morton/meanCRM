@@ -102,6 +102,10 @@ select#roleSelect {
 	overflow-y: scroll;
 }
 
+#fileUpload {
+	width: 350px;
+}
+
 /*input {
 	border-radius: 5px !important;
 }*/

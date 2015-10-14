@@ -389,6 +389,13 @@ module.exports = function(app, express) {
 			})
 		});
 		
+		apiRouter.route('/upload')
+		
+		.post(function(req, res) {
+			console.log("uploads called with: " + req.body);
+			res.json({message: "GOT THE FILE!"});
+		});
+		
 
 		//return apiRouter for use in main application		
 		return apiRouter;

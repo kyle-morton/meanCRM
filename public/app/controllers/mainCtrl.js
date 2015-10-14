@@ -1,8 +1,8 @@
-angular.module ('mainCtrl', ['postService', 'angularFileUpload']) 
+angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload']) 
 
 //including the Auth factory!
 .controller ('mainController', function($rootScope, $location, $scope, 
-										Auth, Post, FileUploader){
+										Auth, Post, File, FileUploader){
 	
 	var vm = this;
 	
@@ -11,7 +11,10 @@ angular.module ('mainCtrl', ['postService', 'angularFileUpload'])
 	vm.postData = {};
 
 	//set up file uploader
-	vm.uploader = $scope.uploader = new FileUploader();
+	vm.uploader = $scope.uploader 
+						= new FileUploader({
+							url: '/api/uploads'
+						});
 	
 	vm.uploader.filters.push({
 		name: 'imageFilter',
@@ -24,6 +27,23 @@ angular.module ('mainCtrl', ['postService', 'angularFileUpload'])
 	 //callbacks for uploader
 	 vm.uploader.onAfterAddingFile = function(fileItem) {
 		console.info('onAfterAddingFile', fileItem);
+	 };
+	 
+	 vm.uploader.onBeforeUploadItem = function(item) {
+		 console.log("Files: " + vm.uploader.queue);
+	 };
+	 
+	 vm.uploader.uploadItem = function (item) {
+		 
+		var file = item._file;
+		 
+		console.log("File: " + file.size); 
+		 
+		//call file service to upload file
+		File.upload(file)
+			.then(function(data) {
+				console.log("DATA: " + JSON.stringify(item));
+			});
 	 };
 	
 	//check if user logged in on EACH request
