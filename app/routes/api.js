@@ -19,60 +19,73 @@ module.exports = function(app, express) {
 		// route for authenticating users
 		// REM: BEFORE auth middleware! This way unauth users can get here
 		apiRouter.post('/authenticate', function(req, res) {
-		
-		//Find User By ID
-		User.findOne({
-			username: req.body.username
-			}).select('name username password role').exec(function(err, user){
+			
+			var authMessage = "Authentication Failed: ";	
+			
+			console.log("AUTH: " + req.body.username + " " + req.body.password);
 				
-				if (err) res.send("ERROR: " + err);
-				
-				var authMessage = "Authentication Failed: ";
-				
-				//No user with that username found
-				if (!user) {
-					res.json({
-						success: false,
-						message: authMessage + "User Not Found"
-					});
-				} else if (user) {  //user found
+			//if entered UN & PW
+			if(req.body.username && req.body.password) {
+				//Find User By ID
+			User.findOne({
+				username: req.body.username
+				}).select('name username password role').exec(function(err, user){
 					
-					//check if request PW matches using Model static method!
-					var validPW = user.comparePassword(req.body.password); 
+					if (err) res.send("ERROR: " + err);
 					
-					//if doesn't match
-					if (!validPW) {
-						res.send({
-							success: false,
-							message: authMessage + "Wrong Password"
-						});
-					} else { //valid password entered
+					// var authMessage = "Authentication Failed: ";
 					
-					// console.log("user: " + JSON.stringify(user));
-						
-						//Create JWT Token
-						//ARGS -> pass object with name, username
-						// secret, expiration in minutes
-						var token = jwt.sign({
-								name: user.name,
-								username: user.username,
-								id: user._id,
-								role: user.role
-							}, secret, {expiresInMinutes: 1440}); //expire in 24 hours
-						
+					//No user with that username found
+					if (!user) {
 						res.json({
-							success: true,
-							message: 'Enjoy your token!',
-							token: token
-						}); //Return token for future requests
+							success: false,
+							message: authMessage + "User Not Found"
+						});
+					} else if (user) {  //user found
+						
+						//check if request PW matches using Model static method!
+						var validPW = user.comparePassword(req.body.password); 
+						
+						//if doesn't match
+						if (!validPW) {
+							res.send({
+								success: false,
+								message: authMessage + "Wrong Password"
+							});
+						} else { //valid password entered
+						
+						// console.log("user: " + JSON.stringify(user));
+							
+							//Create JWT Token
+							//ARGS -> pass object with name, username
+							// secret, expiration in minutes
+							var token = jwt.sign({
+									name: user.name,
+									username: user.username,
+									id: user._id,
+									role: user.role
+								}, secret, {expiresInMinutes: 1440}); //expire in 24 hours
+							
+							res.json({
+								success: true,
+								message: 'Enjoy your token!',
+								token: token
+							}); //Return token for future requests
+							
+						}
+						
 						
 					}
 					
+				});
+				} //end if
+				else { //no un OR pw so auth failed by default
 					
+					res.send({
+						success: false,
+						message: authMessage + "Username AND Password Required"
+					});
 				}
-				
-			})
-		
 		
 		});
 		
@@ -274,6 +287,7 @@ module.exports = function(app, express) {
 			post.body = req.body.body;
 			post.userid = req.body.userid;
 			post.username = req.body.username;
+			post.read = false; //set to false by default on creation
 			
 			console.log("Creating New Post: " + 
 							JSON.stringify(post));
@@ -310,17 +324,20 @@ module.exports = function(app, express) {
 		});
 		
 		apiRouter.route('/posts/:post_id')
+		//multiple params /posts/:post_id/:post_name
 		
-		//update post to be read
+		//update post to be read OR
+		//update the contents if sent with request body
 		.put(function(req, res) {
 			
 			//get the user object id 
 			Post.findById(req.params.post_id, function(err, post) {
-				if (err) res.send("ERROR: " + err);
-			
+				if (err) res.send("ERROR: " + err);			
 				
-				
+				//if found post to update
 				if (post) {
+					
+					//Check if 
 				
 					//flip read flag
 					post.read = !post.read;

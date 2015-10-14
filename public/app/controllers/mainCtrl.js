@@ -2,16 +2,12 @@ angular.module ('mainCtrl', ['postService'])
 
 //including the Auth factory!
 .controller ('mainController', function($rootScope, $location, Auth, Post){
-
-	console.log("init main controller");
 	
 	var vm = this;
 	
 	vm.processing = false;
 	
 	vm.postData = {};
-
-	vm.message ="HELLO!";
 	
 	//check if user logged in on EACH request
 	//subscribing to rootScope objects changeStart event!
@@ -36,9 +32,13 @@ angular.module ('mainCtrl', ['postService'])
 		//set to processing, clear previous error msg
 		vm.processing = true;
 		vm.error = '';
-	
-		//call Auth.login() with form data
-		Auth.login(vm.loginData.username, vm.loginData.password)
+		
+		//if form valid
+		if (vm.loginData && vm.loginData.username &&
+			vm.loginData.password) {
+				
+			//call Auth.login() with form data
+			Auth.login(vm.loginData.username, vm.loginData.password)
 			.success(function(data) {
 				vm.processing = false;			
 
@@ -49,6 +49,13 @@ angular.module ('mainCtrl', ['postService'])
 					vm.error = data.message;
 				
 			});
+		} 
+		else {
+			vm.processing = false;
+			vm.error = "Username & Password Required";
+		}
+	
+		
 		
 	};
 	

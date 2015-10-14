@@ -55,4 +55,12 @@ angular.module('postCtrl', ['postService'])
 			
 	};
 	
+	vm.updatePostStatus = function(id) {
+		Post.status(id)
+			.then(function(data){
+				//if success reload table
+				vm.loadPosts();
+			});
+	}
+	
 });
