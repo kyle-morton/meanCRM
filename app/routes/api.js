@@ -395,9 +395,9 @@ module.exports = function(app, express) {
 		apiRouter.route('/upload')
 		
 		//use multer middleware to handle multipart requests
-		apiRouter.use(multer({
-			dest:  './uploads'
-		}).single())
+		// apiRouter.use(multer({
+		// 	dest:  './uploads'
+		// }).single())
 		
 		.post(function(req, res, next) {
 			if (req.files) {
