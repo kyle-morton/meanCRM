@@ -18,6 +18,10 @@ angular.module('app.routes', ['ngRoute'])
 			controllerAs: 'login'
 		})
 		
+		.when('/upload', {
+			templateUrl: 'app/views/pages/upload.html'
+		})
+		
 		//users page
 		.when('/users', {
 			templateUrl: 'app/views/pages/users/all.html',
