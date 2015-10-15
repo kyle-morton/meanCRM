@@ -2,6 +2,7 @@ var User = require('../models/user');
 var Post = require('../models/post');
 var jwt = require('jsonwebtoken');
 var config = require('../../config');
+var multer = require('multer');
 var fs = require('fs');
 var util = require('util');
 
@@ -392,6 +393,11 @@ module.exports = function(app, express) {
 		});
 		
 		apiRouter.route('/upload')
+		
+		//use multer middleware to handle multipart requests
+		apiRouter.use(multer({
+			dest:  './uploads'
+		}).single())
 		
 		.post(function(req, res, next) {
 			if (req.files) {

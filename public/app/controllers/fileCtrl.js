@@ -4,11 +4,12 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 .controller ('fileController', function($scope, Auth, File, FileUploader){
 	
 	var vm = this;
+	vm.processing = false;
 	
 		//set up file uploader
 	vm.uploader = $scope.uploader 
 						= new FileUploader({
-							url: '/api/uploads'
+							// url: '/api/uploads'
 						});
 	
 	vm.uploader.filters.push({
@@ -21,6 +22,8 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 	 
 	 //callbacks for uploader
 	 vm.uploader.onAfterAddingFile = function(fileItem) {
+		 vm.processing = true;
+		 
 		console.info('onAfterAddingFile', fileItem);
 		var file = fileItem._file;
 		var fileData = {
@@ -31,10 +34,11 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 		
 
 		
-				//call file service to upload file
+		//call file service to upload file
 		File.upload(fileData)
 			.then(function(data) {
 				console.log("DATA: " + JSON.stringify(data));
+				vm.processing = false;
 			});
 		
 	 };

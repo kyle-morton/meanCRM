@@ -1,9 +1,10 @@
 <div class="row col-md-6 col-md-offset-3">
 	<input class="btn btn-default" type="file" nv-file-select uploader="uploader"/><br/>
-	<ul>
+	<span ng-if="file.processing" class="spinner"><span class="glyphicon glyphicon-repeat"></span></span>
+	<!--<ul>
 		<li ng-repeat="item in uploader.queue">
 			Name: <span ng-bind="item.file.name"></span>
 			<a class="btn btn-default" ng-click="item.upload()">upload</a>
 		</li>
-	</ul>
+	</ul>-->
 </div>

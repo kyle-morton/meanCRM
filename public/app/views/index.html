@@ -56,7 +56,8 @@
 		</div>	
 		<ul class="nav navbar-nav">
 			<li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-			<li><a href="/upload"><span class="glyphicon glyphicon-camera"></span> Upload</a></li>
+			<li ng-show="main.user.username === 'kmorton'">
+				<a href="/upload"><span class="glyphicon glyphicon-camera"></span> Upload</a></li>
 			<!--<li><a class="anchorStyle" data-target="#postModal" data-toggle="modal"> 
 				<span class="glyphicon glyphicon-pencil"></span>Create Post
 			</a></li>-->
