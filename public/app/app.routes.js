@@ -19,7 +19,9 @@ angular.module('app.routes', ['ngRoute'])
 		})
 		
 		.when('/upload', {
-			templateUrl: 'app/views/pages/upload.html'
+			templateUrl: 'app/views/pages/upload.html',
+			controller: 'fileController',
+			controllerAs: 'file'
 		})
 		
 		//users page

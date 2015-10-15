@@ -1,7 +1,7 @@
 angular.module('userApp', ['ngAnimate', 'app.routes', 'authService', 
 							'mainCtrl', 'userCtrl', 'userService', 
-							'postCtrl', 'postService', 'fileService',
-							'angularFileUpload'])
+							'postCtrl', 'postService', 'fileCtrl',
+							'fileService', 'angularFileUpload'])
 
 // application configuration to integrate token into requests
 .config(function($httpProvider) {
