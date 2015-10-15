@@ -2,6 +2,8 @@ var User = require('../models/user');
 var Post = require('../models/post');
 var jwt = require('jsonwebtoken');
 var config = require('../../config');
+var fs = require('fs');
+var util = require('util');
 
 var secret = config.secret;
 
@@ -391,9 +393,10 @@ module.exports = function(app, express) {
 		
 		apiRouter.route('/upload')
 		
-		.post(function(req, res) {
-			console.log("uploads called with: " + req.body);
-			res.json({message: "GOT THE FILE!"});
+		.post(function(req, res, next) {
+			if (req.files) {
+				console.log(util.inspect(req.files));
+			}
 		});
 		
 

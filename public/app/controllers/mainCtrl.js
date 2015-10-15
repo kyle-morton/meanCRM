@@ -27,6 +27,21 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload'])
 	 //callbacks for uploader
 	 vm.uploader.onAfterAddingFile = function(fileItem) {
 		console.info('onAfterAddingFile', fileItem);
+		var file = fileItem._file;
+		var fileData = {
+			file: file
+		};
+		
+		console.info("Upload File", fileData);
+		
+
+		
+				//call file service to upload file
+		File.upload(fileData)
+			.then(function(data) {
+				console.log("DATA: " + JSON.stringify(data));
+			});
+		
 	 };
 	 
 	 vm.uploader.onBeforeUploadItem = function(item) {
@@ -42,7 +57,7 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload'])
 		//call file service to upload file
 		File.upload(file)
 			.then(function(data) {
-				console.log("DATA: " + JSON.stringify(item));
+				console.log("DATA: " + JSON.stringify(data));
 			});
 	 };
 	

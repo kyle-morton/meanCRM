@@ -12,12 +12,17 @@ var morgan     = require('morgan'); 		// used to see requests
 var mongoose   = require('mongoose');
 var port       = config.port;
 var path 	   = require('path');
-// var multer 	   = require('multer');
+var multer 	   = require('multer');
 
 // APP CONFIGURATION ---------------------
 // use body parser so we can grab information from POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser({limit: '5mb'})); //set large size limit for files
 app.use(bodyParser.json());
+//use multer middleware to handle multipart requests
+app.use(multer({
+	dest:  './uploads'
+}).single());
 
 // configure our app to handle CORS requests
 app.use(function(req, res, next) {
