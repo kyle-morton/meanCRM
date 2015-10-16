@@ -12,7 +12,7 @@ var morgan     = require('morgan'); 		// used to see requests
 var mongoose   = require('mongoose');
 var port       = config.port;
 var path 	   = require('path');
-// var multer 	   = require('multer');
+var multer 	   = require('multer');
 
 // APP CONFIGURATION ---------------------
 
