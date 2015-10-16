@@ -16,14 +16,9 @@ var multer 	   = require('multer');
 
 // APP CONFIGURATION ---------------------
 
-//use multer middleware to handle multipart requests
-// app.use(multer({
-// 	dest:  './uploads'
-// }).single('file'));
-
 // use body parser so we can grab information from POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser({limit: '5mb'})); //set large size limit for files
+// app.use(bodyParser({limit: '5mb'})); //set large size limit for files
 app.use(bodyParser.json());
 
 

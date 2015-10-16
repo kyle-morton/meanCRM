@@ -7,10 +7,7 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 	vm.processing = false;
 	
 		//set up file uploader
-	vm.uploader = $scope.uploader 
-						= new FileUploader({
-							// url: '/api/uploads'
-						});
+	vm.uploader = $scope.uploader = new FileUploader();
 	
 	vm.uploader.filters.push({
 		name: 'imageFilter',

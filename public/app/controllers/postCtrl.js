@@ -88,8 +88,7 @@ angular.module('postCtrl', ['postService'])
 	};
 	
 	vm.updatePostContent = function () {
-		console.log("POST CONTENT: " + JSON.stringify(vm.editPostData) + " " 
-		+ vm.editPostData.body.length);
+		console.log("POST CONTENT: " + JSON.stringify(vm.editPostData) + " " + vm.editPostData.body.length);
 		
 		if (vm.editPostData.body.length <= 140) { //impose 140 character limit on body
 					Post.update(vm.editPostData)
@@ -121,8 +120,8 @@ angular.module('postCtrl', ['postService'])
 			confirmButtonColor: "#DD6B55",   
 			confirmButtonText: "Yes, delete it!",   
 			closeOnConfirm: true,
-			closeOnCancel: true }
-			, function(){   
+			closeOnCancel: true },
+			function(){   
 				
 				//if confirm, delete user
 				vm.processing = true;
