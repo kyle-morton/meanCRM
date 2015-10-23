@@ -22,25 +22,31 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
    
     };
 	
-	vm.FileUpload= function(initFile, File) {
+	vm.FileUpload= function(initFile) {
 		var reader = new FileReader();  
 		
 		//create onloadend subscriber to handle finished file
 		reader.onloadend = function(evt) {
 			var readFile = reader.result;
-			vm.upload(readFile);
+			vm.upload(readFile, initFile.name, initFile.size);
 		};
 		
 		//read file
 		reader.readAsBinaryString(initFile);
-	}
+	};
 	
-	vm.upload = function(readFile) {
-		console.log("in upload!");
-		File.upload(readFile) 
+	vm.upload = function(readFile, fileName, fileSize) {
+		var file = {
+			data: readFile,
+			name: fileName,
+			size: fileSize
+		};
+				
+		File.upload(file) 
 			.then(function(data){
-				console.log(JSON.stringify(data));
+				var message = data.data.message;
+				swal("Success!", message, "success");
 			});
-	}
+	};
 	
 });

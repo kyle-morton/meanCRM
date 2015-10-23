@@ -18,7 +18,7 @@ var multer 	   = require('multer');
 
 // use body parser so we can grab information from POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser({limit: '5mb'})); //set large size limit for files
+app.use(bodyParser({limit: '5mb'})); //set large size limit for files
 app.use(bodyParser.json());
 
 

@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var Post = require('../models/post');
+var FileUpload = require('../models/file');
 var jwt = require('jsonwebtoken');
 var config = require('../../config');
 var multer = require('multer');
@@ -401,8 +402,30 @@ module.exports = function(app, express) {
 		// }).single())
 		
 		.post(upload.single('file'), function(req, res, next) {
-			console.log("Files: " + JSON.stringify(req.body));
-			res.json({message: "File Uploaded!"});
+			// res.json({message: "File Uploaded!"});
+			var fileData = req.body.data;
+			var name = req.body.name;
+			var size = req.body.size;
+			
+			var file = new FileUpload();
+			if (fileData && name && size) {
+				file.name = name;
+				file.size = size;
+				file.data = fileData;
+				
+				//save to database
+				file.save(function(err) { //use built in save to send file to MDB
+				
+					console.log("ERROR: " + err);
+					
+					if (err) { //if error, handle appropriately
+						return res.send(err);
+					}
+					//no error, user created
+					res.json({message: 'File Uploaded Successfully!'});
+					
+				});	//end save
+			} //end if
 		});
 		
 
