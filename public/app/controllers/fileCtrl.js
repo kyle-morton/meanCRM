@@ -6,6 +6,33 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 	var vm = this;
 	vm.processing = false;
 	
+	jQuery.event.props.push('dataTransfer');
+	
+	console.log("Setting up file drop!");
+	
+	$("body").on('drop', function(event) {
+		
+		console.log("DROPPED FILE!");
+		
+		event.preventDefault();
+		
+		var file = event.dataTransfer.files[0];
+		
+		if (file.type.match('image.*')) {
+			vm.FileUpload(file);
+			// swal("Success!", "You Dropped an Image!", "success");
+		} else {
+			swal("Error", "Only images may be uploaded!", "error");
+		}
+		
+		
+	});
+	
+	$("body").on("dragover", function(event) {
+		// Required for drop to work
+		return false;
+	});
+	
 	
 	//used to handle files added to upload section
 	$scope.uploadFile = function(event){
@@ -46,7 +73,6 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 			.then(function(data){
 				var message = data.data.message;
 				swal("Success!", message, "success");
-				$location.path( "/users" );
 			});
 	};
 	
