@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var Post = require('../models/post');
 var FileUpload = require('../models/file');
+var Avatar = require('../models/avatar');
 var jwt = require('jsonwebtoken');
 var config = require('../../config');
 var multer = require('multer');
@@ -424,6 +425,37 @@ module.exports = function(app, express) {
 					//no error, user created
 					res.json({message: 'File Uploaded Successfully!'});
 					
+				});	//end save
+			} //end if
+		});
+		
+		//used to upload, retrieve, update user avatar
+		apiRouter.route('/avatar')
+		
+		.post(upload.single('file'), function(req, res, next) {
+			// res.json({message: "File Uploaded!"});
+			var fileData = req.body.data;
+			var name = req.body.name;
+			var size = req.body.size;
+			var user = req.body.user;
+			
+			var avatar = new Avatar();
+			if (fileData && name && size) {
+				avatar.name = name;
+				avatar.size = size;
+				avatar.data = fileData;
+				avatar.user = user;
+				
+				//save to database
+				avatar.save(function(err) { //use built in save to send file to MDB
+				
+					console.log("ERROR: " + err);
+					
+					if (err) { //if error, handle appropriately
+						return res.send(err);
+					}
+					//no error, user created
+					res.json({message: 'Avatar Uploaded Successfully!'});
 				});	//end save
 			} //end if
 		});

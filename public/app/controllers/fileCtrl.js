@@ -1,14 +1,23 @@
-angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload']) 
+angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload',
+							  'avatarService']) 
 
 //including the Auth factory!
-.controller ('fileController', function($scope, $location, Auth, File, FileUploader){
+.controller ('fileController', function($scope, $location, Auth, File, Avatar, FileUploader){
 	
 	var vm = this;
 	vm.processing = false;
 	
-	jQuery.event.props.push('dataTransfer');
+	//Get Currently Logged-In User Info
+	Auth.getUser()
+		.then(function(data) {
+			vm.user = data.data;
+			console.log(JSON.stringify(vm.user));
+		});	
 	
-	console.log("Setting up file drop!");
+	//BEGIN Avatar Drop Logic//	
+	
+
+	jQuery.event.props.push('dataTransfer');
 	
 	$("body").on('drop', function(event) {
 		
@@ -19,7 +28,7 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 		var file = event.dataTransfer.files[0];
 		
 		if (file.type.match('image.*')) {
-			vm.FileUpload(file);
+			vm.AvatarUpload(file);
 			// swal("Success!", "You Dropped an Image!", "success");
 		} else {
 			swal("Error", "Only images may be uploaded!", "error");
@@ -33,6 +42,7 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 		return false;
 	});
 	
+	//END Avatar Drop Logic//
 	
 	//used to handle files added to upload section
 	$scope.uploadFile = function(event){
@@ -62,6 +72,19 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 		reader.readAsBinaryString(initFile);
 	};
 	
+	vm.AvatarUpload = function(initFile) {
+		var reader = new FileReader();  
+		
+		//create onloadend subscriber to handle finished file
+		reader.onloadend = function(evt) {
+			var readFile = reader.result;
+			vm.uploadAvatar(readFile, initFile.name, initFile.size);
+		};
+		
+		//read file
+		reader.readAsBinaryString(initFile);
+	};
+	
 	vm.upload = function(readFile, fileName, fileSize) {
 		var file = {
 			data: readFile,
@@ -70,6 +93,23 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 		};
 				
 		File.upload(file) 
+			.then(function(data){
+				var message = data.data.message;
+				swal("Success!", message, "success");
+			});
+	};
+	
+	vm.uploadAvatar = function(readFile, fileName, fileSize) {
+		var avatar = {
+			data: readFile,
+			name: fileName,
+			size: fileSize,
+			user: vm.user.id
+		};
+		
+		console.log("USER: " + vm.user.id);
+				
+		Avatar.upload(avatar) 
 			.then(function(data){
 				var message = data.data.message;
 				swal("Success!", message, "success");
