@@ -1,7 +1,7 @@
 angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload']) 
 
 //including the Auth factory!
-.controller ('fileController', function($scope, Auth, File, FileUploader){
+.controller ('fileController', function($scope, $location, Auth, File, FileUploader){
 	
 	var vm = this;
 	vm.processing = false;
@@ -11,15 +11,15 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 	$scope.uploadFile = function(event){
         var fileToUpload = event.target.files[0];
         console.log('FileCtrl file was selected: ' + fileToUpload.name + " " + fileToUpload.size + " " + fileToUpload.data);
-   		vm.FileUpload(fileToUpload);
-		
 		   
-		   
-		// File.upload(fileToUpload)
-		// 	.then(function(data) {
-		// 		console.log(JSON.stringify(data));
-		// 	});	
-   
+		//if image, upload to API
+		if ((endsWith(fileToUpload.name, ".jpg") ||
+			endsWith(fileToUpload.name, '.png'))) {
+			vm.FileUpload(fileToUpload);
+		} else {
+			swal("Error", "Only images (jpg or png) may be uploaded!", "error");
+		}
+
     };
 	
 	vm.FileUpload= function(initFile) {
@@ -46,7 +46,12 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload'])
 			.then(function(data){
 				var message = data.data.message;
 				swal("Success!", message, "success");
+				$location.path( "/users" );
 			});
 	};
 	
 });
+
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+};
