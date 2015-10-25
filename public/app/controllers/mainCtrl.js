@@ -30,7 +30,7 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 						//   console.log("DATA: " + JSON.stringify(avatarData));
 						  var message = avatarData.data.message;
 						  if (!(message === undefined)) { //if message present
-							  swal("Error", "You haven't set your avatar yet!", "error");
+							//   swal("Error", "You haven't set your avatar yet!", "error");
 						  } else { //avatar already set
 							  var avatar = avatarData.data;
 							  vm.user.avatar = avatar; //attach to user data

@@ -65,7 +65,10 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload',
 		//create onloadend subscriber to handle finished file
 		reader.onloadend = function(evt) {
 			var readFile = reader.result;
-			vm.upload(readFile, initFile.name, initFile.size);
+			// var encodedFile = Base64.encode(readFile);
+			var encodedFile = window.btoa(readFile);
+			console.log("encodedFile: " + encodedFile);
+			//vm.upload(encodedFile, initFile.name, initFile.size);
 		};
 		
 		//read file
@@ -78,7 +81,9 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload',
 		//create onloadend subscriber to handle finished file
 		reader.onloadend = function(evt) {
 			var readFile = reader.result;
-			vm.uploadAvatar(readFile, initFile.name, initFile.size);
+			// var encodedFile = Base64.encode(readFile);
+			var encodedFile = window.btoa(readFile);
+			vm.uploadAvatar(encodedFile, initFile.name, initFile.size);
 		};
 		
 		//read file

@@ -473,7 +473,7 @@ module.exports = function(app, express) {
 			Avatar.findOne({user: userId})
 			      .exec(function(err, avatar){
 					
-					console.log("ERROR: " + err + "\nAVATAR: " + avatar._id);
+					console.log("ERROR: " + err + "\nAVATAR: " + avatar);
 				
 					if (err) {
 						res.send("ERROR: " + err);
