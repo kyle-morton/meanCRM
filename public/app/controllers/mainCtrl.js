@@ -1,8 +1,8 @@
-angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload']) 
+angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 'avatarService']) 
 
 //including the Auth factory!
 .controller ('mainController', function($rootScope, $location, $scope, 
-										Auth, Post, File, FileUploader){
+										Auth, Post, File, FileUploader, Avatar){
 	
 	var vm = this;
 	
@@ -23,6 +23,15 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload'])
 		Auth.getUser()
 			.then(function(data) {
 				vm.user = data.data;
+				
+				console.log("USER: " + JSON.stringify(vm.user));
+				
+				//get user avatar as well
+				Avatar.find(vm.user.id)
+					  .then(function(avatarData) {
+						  console.log("DATA: " + JSON.stringify(avatarData));  
+					  });
+				
 			});	
 
 	});

@@ -460,6 +460,33 @@ module.exports = function(app, express) {
 			} //end if
 		});
 		
+		apiRouter.route('/avatar/:user_id')
+		
+		.get(function(req,res) {
+			var userId = req.body.user;
+			
+			console.log("USER ID: " + userId + " " + JSON.stringify(req.body));
+			
+			if (userId) { //valid userId for avatar search sent in API call
+			
+				Avatar.findById(userId, function(err, avatar) {
+					
+					console.log("ERROR: " + err + "\nAVATAR: " + JSON.stringify(avatar));
+				
+					if (err) {
+						res.send("ERROR: " + err);
+					} else if(avatar) {
+						res.json(avatar);
+					} else {
+						res.json({message: "avatar not found!"});
+					}
+				});
+			
+				
+			}
+			
+		});
+		
 
 		//return apiRouter for use in main application		
 		return apiRouter;

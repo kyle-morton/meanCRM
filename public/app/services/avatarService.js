@@ -10,5 +10,9 @@ angular.module('avatarService', [])
 			return $http.post('/api/avatar', file);
 		};
 		
+		avatarFactory.find = function(userId){
+			return $http.get('/api/avatar/' + userId);
+		};
+		
 		return avatarFactory;
 	});
