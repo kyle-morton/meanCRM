@@ -463,15 +463,17 @@ module.exports = function(app, express) {
 		apiRouter.route('/avatar/:user_id')
 		
 		.get(function(req,res) {
-			var userId = req.body.user;
+			var userId = req.params.user_id;
 			
 			console.log("USER ID: " + userId + " " + JSON.stringify(req.body));
 			
 			if (userId) { //valid userId for avatar search sent in API call
 			
-				Avatar.findById(userId, function(err, avatar) {
+			
+			Avatar.findOne({user: userId})
+			      .exec(function(err, avatar){
 					
-					console.log("ERROR: " + err + "\nAVATAR: " + JSON.stringify(avatar));
+					console.log("ERROR: " + err + "\nAVATAR: " + avatar._id);
 				
 					if (err) {
 						res.send("ERROR: " + err);
