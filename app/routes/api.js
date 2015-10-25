@@ -438,6 +438,7 @@ module.exports = function(app, express) {
 			var name = req.body.name;
 			var size = req.body.size;
 			var user = req.body.user;
+			var extension = req.body.extension;
 			
 			var avatar = new Avatar();
 			if (fileData && name && size) {
@@ -445,18 +446,58 @@ module.exports = function(app, express) {
 				avatar.size = size;
 				avatar.data = fileData;
 				avatar.user = user;
+				avatar.extension = extension;
 				
-				//save to database
-				avatar.save(function(err) { //use built in save to send file to MDB
-				
-					console.log("ERROR: " + err);
+				//check if avatar already exists for user
+				Avatar.findOne({user: avatar.user})
+			      .exec(function(err, existingAvatar){
 					
-					if (err) { //if error, handle appropriately
-						return res.send(err);
-					}
-					//no error, user created
-					res.json({message: 'Avatar Uploaded Successfully!'});
-				});	//end save
+					// console.log("ERROR: " + err + "\nAVATAR: " + avatar);
+				
+					if (err) {
+						res.send("ERROR: " + err);
+					} else { 
+					
+						//if avatar exists, delete old
+						if (existingAvatar) {
+							
+							console.log("Avatar already exists for: " + avatar.user);
+							Avatar.remove({user: avatar.user}, function(err, user) {
+								if (err) res.send("ERROR: " + err);
+								else {
+									console.log("Deleted old avatar");
+									//save new to database
+									avatar.save(function(err) { //use built in save to send file to MDB
+										if (err) { //if error, handle appropriately
+											return res.send(err);
+										}
+										
+										//no error, user created
+										console.log("Saved new avatar!");
+										res.json({message: 'Avatar Uploaded Successfully!'});
+									});	//end save
+								}
+								
+							});
+						} else {
+							//save new to database
+							avatar.save(function(err) { //use built in save to send file to MDB
+								
+								if (err) { //if error, handle appropriately
+									return res.send(err);
+								}
+								//no error, user created
+								console.log("Saved new avatar!");
+								res.json({message: 'Avatar Uploaded Successfully!'});
+							});	//end save
+						}
+
+		
+
+					}//end else
+				});
+				
+			
 			} //end if
 		});
 		
@@ -473,7 +514,7 @@ module.exports = function(app, express) {
 			Avatar.findOne({user: userId})
 			      .exec(function(err, avatar){
 					
-					console.log("ERROR: " + err + "\nAVATAR: " + avatar);
+					// console.log("ERROR: " + err + "\nAVATAR: " + avatar);
 				
 					if (err) {
 						res.send("ERROR: " + err);

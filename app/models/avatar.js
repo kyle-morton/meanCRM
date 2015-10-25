@@ -6,6 +6,7 @@ var AvatarSchema = new Schema({
 	name: String,
 	data: String,
 	size: Number,
+	extension: String,
 	user: String,
 	time : { type : Date, default: Date.now }
 });

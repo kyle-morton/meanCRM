@@ -20,9 +20,7 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload',
 	jQuery.event.props.push('dataTransfer');
 	
 	$("body").on('drop', function(event) {
-		
-		console.log("DROPPED FILE!");
-		
+		//stop browser from opening file
 		event.preventDefault();
 		
 		var file = event.dataTransfer.files[0];
@@ -45,35 +43,35 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload',
 	//END Avatar Drop Logic//
 	
 	//used to handle files added to upload section
-	$scope.uploadFile = function(event){
-        var fileToUpload = event.target.files[0];
-        console.log('FileCtrl file was selected: ' + fileToUpload.name + " " + fileToUpload.size + " " + fileToUpload.data);
-		   
-		//if image, upload to API
-		if ((endsWith(fileToUpload.name, ".jpg") ||
-			endsWith(fileToUpload.name, '.png'))) {
-			vm.FileUpload(fileToUpload);
-		} else {
-			swal("Error", "Only images (jpg or png) may be uploaded!", "error");
-		}
-
-    };
+// 	$scope.uploadFile = function(event){
+//         var fileToUpload = event.target.files[0];
+//         console.log('FileCtrl file was selected: ' + fileToUpload.name + " " + fileToUpload.size + " " + fileToUpload.data);
+// 		   
+// 		//if image, upload to API
+// 		if ((endsWith(fileToUpload.name, ".jpg") ||
+// 			endsWith(fileToUpload.name, '.png'))) {
+// 			vm.FileUpload(fileToUpload);
+// 		} else {
+// 			swal("Error", "Only images (jpg or png) may be uploaded!", "error");
+// 		}
+// 
+//     };
 	
-	vm.FileUpload= function(initFile) {
-		var reader = new FileReader();  
-		
-		//create onloadend subscriber to handle finished file
-		reader.onloadend = function(evt) {
-			var readFile = reader.result;
-			// var encodedFile = Base64.encode(readFile);
-			var encodedFile = window.btoa(readFile);
-			console.log("encodedFile: " + encodedFile);
-			//vm.upload(encodedFile, initFile.name, initFile.size);
-		};
-		
-		//read file
-		reader.readAsBinaryString(initFile);
-	};
+	// vm.FileUpload= function(initFile) {
+	// 	var reader = new FileReader();  
+	// 	
+	// 	//create onloadend subscriber to handle finished file
+	// 	reader.onloadend = function(evt) {
+	// 		var readFile = reader.result;
+	// 		// var encodedFile = Base64.encode(readFile);
+	// 		var encodedFile = window.btoa(readFile);
+	// 		console.log("encodedFile: " + encodedFile);
+	// 		//vm.upload(encodedFile, initFile.name, initFile.size);
+	// 	};
+	// 	
+	// 	//read file
+	// 	reader.readAsBinaryString(initFile);
+	// };
 	
 	vm.AvatarUpload = function(initFile) {
 		var reader = new FileReader();  
@@ -105,10 +103,12 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload',
 	};
 	
 	vm.uploadAvatar = function(readFile, fileName, fileSize) {
+		var fileExtension = endsWith(fileName, ".jpg") ? 'jpg' : 'png';
 		var avatar = {
 			data: readFile,
 			name: fileName,
 			size: fileSize,
+			extension: fileExtension,
 			user: vm.user.id
 		};
 		
