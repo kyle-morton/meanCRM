@@ -67,16 +67,29 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
-				<li>
+				<!--<li>
 					<div class="navAvatarDiv">
-						<img ng-src="data:image/png;base64,{{main.user.avatar.data}}" ng-if="!(main.user.avatar === undefined) && (main.user.avatar.extension === 'png')" class="nav-avatar fadeAvatar"/>
-						<img ng-src="data:image/jpg;base64,{{main.user.avatar.data}}" ng-if="!(main.user.avatar === undefined) && (main.user.avatar.extension === 'jpg')" class="nav-avatar fadeAvatar"/>
+						<img ng-src="data:image/png;base64,{{main.user.avatar.data}}" ng-if="main.retrievedUser && (main.user.avatar.extension === 'png')" class="nav-avatar fadeAvatar"/>
+						<img ng-src="data:image/jpg;base64,{{main.user.avatar.data}}" ng-if="main.retrievedUser && (main.user.avatar.extension === 'jpg')" class="nav-avatar fadeAvatar"/>
 						<img src="assets/img/blank_avatar.png" ng-if="main.retrievedUser && main.user.avatar === undefined" class="nav-blank-avatar fadeAvatar"/>
 					</div>
-				</li>
-				<li ng-if="main.loggedIn"><a>Hello {{ main.user.username }}!</a></li>
+				</li>-->
+				<li ng-if="main.loggedIn"><a id="userPopupTrigger">Hello {{ main.user.username }}!</a></li>
 				<li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
 			</ul>
+		</div>
+	</div>
+	<div id="pop-up">
+		<div class="row">
+			<h3 class="text-center">Username: {{main.user.username}}</h3>
+			<!--<p class="text-center">Name: {{main.user.name}}</p>-->
+			
+			<div class="text-center">
+				<img ng-src="data:image/png;base64,{{main.user.avatar.data}}" ng-if="main.retrievedUser && (main.user.avatar.extension === 'png')" class="nav-avatar fadeAvatar"/>
+				<img ng-src="data:image/jpg;base64,{{main.user.avatar.data}}" ng-if="main.retrievedUser && (main.user.avatar.extension === 'jpg')" class="nav-avatar fadeAvatar"/>
+				<img src="assets/img/blank_avatar.png" ng-if="main.retrievedUser && main.user.avatar === undefined" class="nav-blank-avatar fadeAvatar"/>
+			</div>
+		
 		</div>
 	</div>
 </header>

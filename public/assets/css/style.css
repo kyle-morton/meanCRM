@@ -120,9 +120,21 @@ select#roleSelect {
 	margin-top: 2px;
 }
 
-.navAvatarDiv {
-	/*width: 100px;*/
+/*.navAvatarDiv {
+	width: 100px;
+}*/
+
+div#pop-up {
+  display: none;
+  position: absolute;
+  width: 280px;
+  padding: 10px;
+  background: #eeeeee;
+  color: #000000;
+  border: 1px solid #1a1a1a;
+  font-size: 90%;
 }
+
 
 /* CSS Fade  */
 /*.fadeAvatar {

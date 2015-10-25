@@ -125,4 +125,4 @@ angular.module ('fileCtrl', ['postService', 'fileService', 'angularFileUpload',
 
 function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
-};
+}

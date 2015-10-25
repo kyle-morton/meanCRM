@@ -30,7 +30,7 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 					  .then(function(avatarData) {
 						//   console.log("DATA: " + JSON.stringify(avatarData));
 						  var message = avatarData.data.message;
-						  if (!(message === undefined)) { //if message present
+						  if (message !== undefined) { //if message present
 							//   swal("Error", "You haven't set your avatar yet!", "error");
 						  } else { //avatar already set
 							  var avatar = avatarData.data;
@@ -88,35 +88,30 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 		
 	};
 	
-	// vm.createPost = function() {
-	// 		console.log("Values: " + vm.postData.subject + " " + vm.postData.body);
-	// 		
-	// 		//if both values are filled in
-	// 		if (vm.postData.subject && vm.postData.body) {
-	// 			
-	// 			console.log(JSON.stringify(vm.user));
-	// 			
-	// 			//create body of API Request
-	// 			var postData = {
-	// 				subject : vm.postData.subject,
-	// 				body : vm.postData.body,
-	// 				userid : vm.user.id,
-	// 				username : vm.user.username
-	// 			};
-	// 			
-	// 			Post.create(postData)
-	// 					.then(function(data) {
-	// 						// console.log("DATA: " + JSON.stringify(data));
-	// 						var message = data.data.message;
-	// 						console.log("Message: " + message);
-	// 						swal("Success!", message.toString(), "success");
-	// 						vm.postData = {};
-	// 					});	
-	// 			
-	// 		} else {
-	// 			swal("Error!", "Post must have subject and body", "error");
-	// 		}
-	// 		
-	// };
+	//pop-up div init
+	var moveLeft = 20;
+    var moveDown = 10;
+	
+
+	
+	$(function() {
+		
+		console.log("before hover");
+		
+		//set up pop-up hover for showing user info and avatar
+		$('#userPopupTrigger').hover(function(e) {
+			$('#pop-up').show()
+			.css('top', e.pageY + moveDown)
+			.css('left', e.pageX + moveLeft)
+			.appendTo('body');
+		}, function() {
+			$('#pop-up').hide();
+		});
+		
+		console.log("After hover");
+
+	});
+	
+	
 	
 });
