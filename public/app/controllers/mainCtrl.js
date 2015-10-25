@@ -24,12 +24,17 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 			.then(function(data) {
 				vm.user = data.data;
 				
-				console.log("USER: " + JSON.stringify(vm.user));
-				
 				//get user avatar as well
 				Avatar.find(vm.user.id)
 					  .then(function(avatarData) {
-						  console.log("DATA: " + JSON.stringify(avatarData));  
+						//   console.log("DATA: " + JSON.stringify(avatarData));
+						  var message = avatarData.data.message;
+						  if (!(message === undefined)) { //if message present
+							  swal("Error", "You haven't set your avatar yet!", "error");
+						  } else { //avatar already set
+							  var avatar = avatarData.data;
+							  vm.user.avatar = avatar; //attach to user data
+						  }  
 					  });
 				
 			});	
