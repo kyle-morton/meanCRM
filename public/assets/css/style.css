@@ -110,6 +110,14 @@ select#roleSelect {
 	height: 1000px !important;
 }
 
+.nav-avatar {
+	height: 36px;
+}
+
+.nav-blank-avatar {
+	height: 36px;
+}
+
 /*input {
 	border-radius: 5px !important;
 }*/
