@@ -7,6 +7,7 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 	var vm = this;
 	
 	vm.processing = false;
+	vm.retrievedUser = false;
 	
 	vm.postData = {};
 	
@@ -34,9 +35,9 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 						  } else { //avatar already set
 							  var avatar = avatarData.data;
 							  vm.user.avatar = avatar; //attach to user data
-						  }  
+						  }
+						  vm.retrievedUser = true;  
 					  });
-				
 			});	
 
 	});
