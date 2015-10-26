@@ -9,7 +9,26 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 	vm.processing = false;
 	vm.retrievedUser = false;
 	
+	//pop-up div init
+	var moveLeft = 20;
+    var moveDown = 10;
+		
+	
 	vm.postData = {};
+	
+	vm.initializeHover = function() {
+		//set up pop-up hover for showing user info and avatar
+		$('#userPopupTrigger').hover(function(e) {
+			$('#pop-up').show()
+			.css('top', e.pageY + moveDown)
+			.css('left', e.pageX + moveLeft)
+			.appendTo('body');
+		}, function() {
+			$('#pop-up').hide();
+		});
+	};
+	
+	vm.initializeHover();
 	
 	//check if user logged in on EACH request
 	//subscribing to rootScope objects changeStart event!
@@ -37,6 +56,7 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 							  vm.user.avatar = avatar; //attach to user data
 						  }
 						  vm.retrievedUser = true;  
+						  vm.initializeHover();
 					  });
 			});	
 
@@ -87,31 +107,5 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 		$location.path('/login');
 		
 	};
-	
-	//pop-up div init
-	var moveLeft = 20;
-    var moveDown = 10;
-	
-
-	
-	$(function() {
-		
-		console.log("before hover");
-		
-		//set up pop-up hover for showing user info and avatar
-		$('#userPopupTrigger').hover(function(e) {
-			$('#pop-up').show()
-			.css('top', e.pageY + moveDown)
-			.css('left', e.pageX + moveLeft)
-			.appendTo('body');
-		}, function() {
-			$('#pop-up').hide();
-		});
-		
-		console.log("After hover");
-
-	});
-	
-	
 	
 });
