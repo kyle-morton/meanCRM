@@ -10,7 +10,7 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 	vm.retrievedUser = false;
 	
 	//pop-up div init
-	var moveLeft = 20;
+	var moveLeft = 100;
     var moveDown = 10;
 		
 	
@@ -21,7 +21,7 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 		$('#userPopupTrigger').hover(function(e) {
 			$('#pop-up').show()
 			.css('top', e.pageY + moveDown)
-			.css('left', e.pageX + moveLeft)
+			.css('left', e.pageX - moveLeft)
 			.appendTo('body');
 		}, function() {
 			$('#pop-up').hide();
