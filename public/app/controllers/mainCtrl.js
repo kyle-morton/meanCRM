@@ -19,12 +19,12 @@ angular.module ('mainCtrl', ['postService', 'fileService', 'angularFileUpload', 
 	vm.initializeHover = function() {
 		//set up pop-up hover for showing user info and avatar
 		$('#userPopupTrigger').hover(function(e) {
-			$('#pop-up').show()
+			$('#pop-up')
 			.css('top', e.pageY + moveDown)
 			.css('left', e.pageX - moveLeft)
-			.appendTo('body');
+			.appendTo('body').fadeIn();
 		}, function() {
-			$('#pop-up').hide();
+			$('#pop-up').fadeOut();
 		});
 	};
 	
